@@ -18,7 +18,6 @@ public enum CharacterType
 public class Character : MonoBehaviour, ITouchable
 {
     protected readonly float RunToMonsterSpeedIncreaseRatio = 2f; // 몬스터한테 달려갈 때 빨라지는 비율
-    protected readonly Vector2 CharacterResetPosition = new Vector2(-7f, -3.5f);
 
     public float DefaultMoveSpeed; // 초당 움직이는 미터수
     public int DefaultActionValue; // 기본 액션 수치
@@ -41,12 +40,17 @@ public class Character : MonoBehaviour, ITouchable
     private float buffRatio = 0f;
 
     StageController stageCtrler;
+    CharacterQueueController queueCtrler;
+    HpBar hpBar;
+
     void Awake()
     {
         moveSpeed = DefaultMoveSpeed;
         hp = DefaultHp;
 
         stageCtrler = GameObject.FindObjectOfType<StageController>();
+        queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
+        hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
     }
 
     public void Start()
@@ -70,6 +74,7 @@ public class Character : MonoBehaviour, ITouchable
     // 기본적인 처리( 이동 등등 )
     protected virtual void Update()
     {
+        hpBar.SetValue((float)hp / (float)DefaultHp);
         if(isDead == true)
         {
             return;
@@ -84,9 +89,8 @@ public class Character : MonoBehaviour, ITouchable
     // 몬스터에게 공격을 하고 다시 되돌아올 때
     public void ResetPosition()
     {
-        // 일단 포지션 설정으로 하고, 나중에 코루틴으로 처리 하자
-
-        transform.position = CharacterResetPosition;
+        queueCtrler.Enqueue(this);
+        isMoving = false;
     }
 
     public void SetBuff(float duration, float ratio)
@@ -143,7 +147,7 @@ public class Character : MonoBehaviour, ITouchable
         if(other.CompareTag("Monster") == true)
         {
             DoAction();
+            ResetPosition();
         }
-        ResetPosition();
     }
 }

@@ -6,12 +6,14 @@ public class StageController : MonoBehaviour
 {
 
     UiController uiCtrler;
+    CharacterQueueController queueCtrler;
 
     List<Character> characters = new List<Character>();
 
     private void Awake()
     {
         uiCtrler = GameObject.FindObjectOfType<UiController>();
+        queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
 
         StartCoroutine(ObjectsCreateProcess());
     }
@@ -46,6 +48,7 @@ public class StageController : MonoBehaviour
         {
             eachCharacter.Start();
         }
+        queueCtrler.OnStart();
     }
 
     private void StageEnd(bool isCleared)

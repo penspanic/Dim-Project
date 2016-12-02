@@ -6,6 +6,7 @@ public class Monster : MonoBehaviour
     // TODO : Monster 프리팹 Monster 태그 설정
 
     public int hp;
+    public int damage;
     public Vector2 SkillCoolTimeRange;
     private bool canUseSKill = false;
 
@@ -60,5 +61,13 @@ public class Monster : MonoBehaviour
         yield return new WaitForSeconds(coolTime);
 
         canUseSKill = true;
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Character")== true)
+        {
+            other.GetComponent<Character>().OnDamaged(damage);
+        }
     }
 }
