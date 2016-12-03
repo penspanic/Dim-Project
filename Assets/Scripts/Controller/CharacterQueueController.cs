@@ -28,32 +28,32 @@ public class CharacterQueueController : MonoBehaviour
 
     void Update()
     {
-        if(characters == null)
+        if (characters == null)
         {
             return;
         }
 
         List<Character> notQueuedCharacters = new List<Character>();
 
-        foreach(var eachCharacter in characters)
+        foreach (var eachCharacter in characters)
         {
-            if(queuedCharacters.Contains(eachCharacter) == false)
+            if (queuedCharacters.Contains(eachCharacter) == false)
             {
                 notQueuedCharacters.Add(eachCharacter);
             }
         }
 
         bool canDeque = true;
-        
-        foreach(var eachCharacter in notQueuedCharacters)
+
+        foreach (var eachCharacter in notQueuedCharacters)
         {
-            if(eachCharacter.transform.position.x < -6f)
+            if (eachCharacter.transform.position.x < -6f)
             {
                 canDeque = false;
             }
         }
 
-        if(canDeque == true && queuedCharacters.Count > 0)
+        if (canDeque == true && queuedCharacters.Count > 0)
         {
             //Character dequedCharacter = queuedCharacters.Dequeue();
             //if (queuedCharacters.Count > 1)
@@ -66,7 +66,7 @@ public class CharacterQueueController : MonoBehaviour
             //}
         }
 
-        foreach(var eachCharacter in queuedCharacters)
+        foreach (var eachCharacter in queuedCharacters)
         {
             eachCharacter.transform.Translate(Vector3.down * Time.deltaTime);
         }
@@ -94,7 +94,7 @@ public class CharacterQueueController : MonoBehaviour
         {
             elaspedTime += Time.deltaTime;
 
-            for(int i = 0; i<tempCharacters.Length;++i)
+            for (int i = 0; i < tempCharacters.Length; ++i)
             {
                 Vector3 newPos = tempCharacters[i].transform.position;
                 newPos.y = Mathf.Lerp(startPositionList[i].y, startPositionList[i].y + moveYValue, elaspedTime / moveTime);
