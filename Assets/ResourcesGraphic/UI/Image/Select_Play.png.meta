@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e483031d1b5f80a488d67729cb2e10cf
-timeCreated: 1480754084
+timeCreated: 1480784970
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -63,7 +63,7 @@ TextureImporter:
         width: 512
         height: 187
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -71,12 +71,12 @@ TextureImporter:
       name: Select_Play_1
       rect:
         serializedVersion: 2
-        x: 5
-        y: 329
-        width: 502
-        height: 2
+        x: 25
+        y: 12
+        width: 338
+        height: 305
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
