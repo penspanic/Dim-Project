@@ -66,7 +66,7 @@ public class StageController : MonoBehaviour
         {
             eachCharacter.StageEnd(isCleared);
         }
-
+     
         IsStageEnd = true;
     }
 
@@ -85,15 +85,19 @@ public class StageController : MonoBehaviour
 
         if (isAllDead == true)
         {
+
             SoundManager.instance.PlayBgmSound(SoundManager.BGM.Fail);
             StageEnd(false);
 
         }
+      
     }
 
     public void OnMonsterDeath(Monster deadMonster)
     {
+        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Clear);
         StageEnd(true);
+
     }
     private void CheckCharacterCount()
     {

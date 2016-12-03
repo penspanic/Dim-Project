@@ -125,6 +125,8 @@ public class Character : MonoBehaviour, ITouchable
         queueCtrler.Enqueue(this);
         isMoving = false;
         moveSpeed = DefaultMoveSpeed;
+
+        
     }
 
     public virtual void SetBuff(float duration, float ratio)
@@ -170,7 +172,7 @@ public class Character : MonoBehaviour, ITouchable
     private void OnDeath()
     {
         isDead = true;
-
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.CharacterDie);
         Destroy(hpBar.gameObject);
 
         if(stageCtrler.IsStageEnd == false)

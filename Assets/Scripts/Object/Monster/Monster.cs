@@ -70,6 +70,7 @@ public class Monster : MonoBehaviour
         // 쉴드가 있을 경우 쉴드의 데미지만 달게 한다. 예) 쉴드 체력 10, damage  30 -> 쉴드 파괴, hp 손실 X
         if (shieldHp > 0)
         {
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.BreakShield);
             shieldHp -= damage;
             if (shieldHp < 0)
             {
@@ -151,6 +152,7 @@ public class Monster : MonoBehaviour
             {
                 defaultAttackCollider.enabled = true;
                 animator.Play("Attack", 0);
+                SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossHit);
             }
         }
     }
@@ -177,12 +179,14 @@ public class Monster : MonoBehaviour
 
             hasShield = true;
             shieldHp = DefaultShieldHp;
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossBarrierOn);
         }
     }
 
     // 광역기
     IEnumerator AoeSkillProcess()
     {
+        
         while (isDead == false)
         {
             float coolTime = Random.Range(AoeSkillCoolTimeRange.x, AoeSkillCoolTimeRange.y);
@@ -202,7 +206,7 @@ public class Monster : MonoBehaviour
                 {
                     continue;
                 }
-
+                SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossAoe);
                 eachCharacter.OnDamaged(AoeSkillDamage);
             }
         }
@@ -221,7 +225,7 @@ public class Monster : MonoBehaviour
             {
                 break;
             }
-
+            
             isNextAttackIsDeadlyAttack = true;
         }
     }
@@ -229,6 +233,8 @@ public class Monster : MonoBehaviour
     // 광전사, 평타 속도가 2배 빨라지게?
     IEnumerator BerserkSkillProces()
     {
+        
+       
         while (isDead == false)
         {
             float coolTime = Random.Range(BerserkSkillCoolTimeRange.x, BerserkSkillCoolTimeRange.y);
@@ -241,6 +247,7 @@ public class Monster : MonoBehaviour
             }
 
             isBerserkMode = true;
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossBerserkerMode);
 
             yield return new WaitForSeconds(BerserkModeDuration);
 

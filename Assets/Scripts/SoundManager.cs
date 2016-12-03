@@ -31,6 +31,19 @@ public class SoundManager : MonoBehaviour
         Shielder_Stun,
         Warrior_Hit,
         Wizard_Hit,
+        CharacterDie,
+
+
+        BossAoe,//광역기 Aoe2번
+        BossBarrierOn,//배리어 켜짐
+        BossBerserkerMode,
+        BossCritical,
+        BossDefense,//방벽맞을때
+        BossHit,
+
+
+
+        
 
 
 
@@ -100,6 +113,7 @@ public class SoundManager : MonoBehaviour
 
         #endregion
         #region Effect
+        //캐릭터
         effect.Add(Effect.Assain_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Assassin_Hit") as AudioClip);
         effect.Add(Effect.Bard_Burf, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Bard_Buff") as AudioClip);
         effect.Add(Effect.Lancer_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Lancer_Hit") as AudioClip);
@@ -108,11 +122,19 @@ public class SoundManager : MonoBehaviour
         effect.Add(Effect.Shielder_Stun, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Shielder_Stun") as AudioClip);
         effect.Add(Effect.Warrior_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Warrior_Hit") as AudioClip);
         effect.Add(Effect.Wizard_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Wizard_Hit") as AudioClip);
-        effect.Add(Effect.BreakShield, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_BreakShield") as AudioClip);
-
+        effect.Add(Effect.CharacterDie, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Character_Die") as AudioClip);      
+        //메뉴
         effect.Add(Effect.ButtonClick, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_UI_Click") as AudioClip);
         effect.Add(Effect.ButtonClose, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_UI_Close") as AudioClip);
         effect.Add(Effect.ButtonSuccess, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_UI_Success") as AudioClip);
+        //보스
+        effect.Add(Effect.BreakShield, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_BreakShield") as AudioClip);
+        effect.Add(Effect.BossAoe, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_AOE_2") as AudioClip);
+        effect.Add(Effect.BossBarrierOn, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_BarrierOn_1") as AudioClip);
+        effect.Add(Effect.BossBerserkerMode, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_BerserkerMode_1") as AudioClip);
+        effect.Add(Effect.BossCritical, Resources.Load("Sound/Boss/Boss") as AudioClip);
+        effect.Add(Effect.BossDefense, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_Defense_1") as AudioClip);
+        effect.Add(Effect.BossHit, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_Hit_1") as AudioClip);
 
         #endregion
     }

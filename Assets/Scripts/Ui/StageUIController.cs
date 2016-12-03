@@ -161,8 +161,8 @@ public partial class StageUIController : MonoBehaviour
             scout.transform.FindChild("Hero_" + (i + 1).ToString());
 
             GameObject hero = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Ui/Scout Character/" + types[i].ToString()));
-
-            scoutableCharacters.Add(hero);
+            hero.transform.parent = scout.transform.FindChild("Hero_" + (i + 1).ToString());
+             scoutableCharacters.Add(hero);
         }
 
         scoutableCharacters[0].transform.Translate(new Vector3(-3.5f, 0f, 0f));
@@ -176,12 +176,15 @@ public partial class StageUIController : MonoBehaviour
         scout.SetActive(false);
         changeHero.SetActive(true);
         canChange = true;
+        var hero = scout.transform.FindChild("Hero_" + (index).ToString()).GetChild(0);
+        hero.transform.parent = changeHero.transform;
     }
 
     public void ChangeHero(int index) // 왼쪽의 5개 초상화 버튼 눌렀을 때, 
     {
         if (canChange)
         {
+         
             changeHero.SetActive(false);
             canChange = false;
 
