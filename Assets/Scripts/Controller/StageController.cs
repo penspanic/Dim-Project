@@ -20,7 +20,7 @@ public class StageController : MonoBehaviour
     {
         uiCtrler = GameObject.FindObjectOfType<UiController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
-        stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.SelectedStageId);
+        stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.instance.SelectedStageId);
 
 
         StartCoroutine(ObjectsCreateProcess());
@@ -29,12 +29,8 @@ public class StageController : MonoBehaviour
     // 소환되는거 나중에 이쁘게 처리하자.
     IEnumerator ObjectsCreateProcess()
     {
-        CharacterType[] ownedTypes = { CharacterType.Assassin, CharacterType.Bard, CharacterType.Priest, CharacterType.Warrior, CharacterType.Wizard };
-        CharacterType[] types = { CharacterType.Assassin, CharacterType.Bard, CharacterType.Priest, CharacterType.Warrior, CharacterType.Wizard };
-        PlayerData.SetData(ownedTypes, types, "S1");
-
         int i = 0;
-        foreach(var eachType in PlayerData.SelectedCharacters)
+        foreach(var eachType in PlayerData.instance.SelectedCharacters)
         {
             GameObject character = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Character/" + eachType.ToString()));
             characters.Add(character.GetComponent<Character>());
@@ -43,7 +39,7 @@ public class StageController : MonoBehaviour
             i++;
         }
 
-        monster = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Monster/Monster_" + PlayerData.SelectedStageId)).GetComponent<Monster>();
+        monster = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Monster/Monster_" + PlayerData.instance.SelectedStageId)).GetComponent<Monster>();
         monster.transform.position = new Vector3(4.75f, -2f, 0f);
 
         yield return null;

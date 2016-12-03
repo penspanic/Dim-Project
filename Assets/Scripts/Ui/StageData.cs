@@ -25,7 +25,7 @@ public class StageData : MonoBehaviour
     {
         int[] temp = new int[2];
         temp[0] = int.Parse(stageLevel.Substring(1, stageLevel.Length - 1));
-        temp[1] = int.Parse(PlayerData.LastClearedStageId.Substring(1, stageLevel.Length - 1));
+        temp[1] = int.Parse(PlayerData.instance.LastClearedStageId.Substring(1, stageLevel.Length - 1));
         if (temp[0] < temp[1])
         {
             stagelock = false;
@@ -39,7 +39,7 @@ public class StageData : MonoBehaviour
     }
     public void SetStagenumber()
     {
-        PlayerData.SelectedStageId = stageLevel;
-        Debug.Log(PlayerData.SelectedStageId);
+        PlayerData.instance.SelectedStageId = stageLevel;
+        Debug.Log(PlayerData.instance.SelectedStageId);
     }
 }
