@@ -18,10 +18,11 @@ public class Bard : Character
     protected override void DoAction()
     {
         base.DoAction();
-
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.Bard_Burf);
         foreach(var eachChracter in characters)
         {
             eachChracter.SetBuff(actionValue, AttackBuffRatio);
+
         }
     }
 

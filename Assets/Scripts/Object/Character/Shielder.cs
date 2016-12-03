@@ -15,7 +15,7 @@ public class Shielder : Character
     protected override void DoAction()
     {
         base.DoAction();
-
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.Shielder_Stun);
         GameObject.FindObjectOfType<Monster>().Stun(actionValue);
     }
 

@@ -12,6 +12,7 @@ public class Lancer : Character
     protected override void DoAction()
     {
         base.DoAction();
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.Lancer_Hit);
         GameObject.FindObjectOfType<Monster>().BreakShield();
     }
 

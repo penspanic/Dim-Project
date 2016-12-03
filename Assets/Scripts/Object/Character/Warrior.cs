@@ -13,6 +13,7 @@ public class Warrior : Character
     protected override void DoAction()
     {
         base.DoAction();
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.Warrior_Hit);
 
         GameObject.FindObjectOfType<Monster>().OnDamaged(actionValue);
     }
