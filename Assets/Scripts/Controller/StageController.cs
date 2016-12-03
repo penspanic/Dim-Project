@@ -43,6 +43,7 @@ public class StageController : MonoBehaviour
         }
 
         monster = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Monster/Monster_" + PlayerData.SelectedStageId)).GetComponent<Monster>();
+        monster.transform.position = new Vector3(4.75f, -2f, 0f);
 
         yield return null;
     }
