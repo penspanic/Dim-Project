@@ -17,6 +17,8 @@ public partial class StageUIController : MonoBehaviour
     private GameObject changeHero;
     [SerializeField]
     private GameObject checkYesNo;
+    [SerializeField]
+    private Button[] heroButtons;
 
     //선택된 캐릭터
     [SerializeField]
@@ -43,7 +45,8 @@ public partial class StageUIController : MonoBehaviour
 
     }
     #endregion
-    #region//메뉴
+
+    #region 메뉴
     void Start()
     {
         StartCoroutine(SceneController.instance.FadeIn(1));
@@ -51,15 +54,13 @@ public partial class StageUIController : MonoBehaviour
     }
     public void ChallengeCheck(StageData stagedata)
     {
-        if (!stagedata.Stagelock)
+        if (!stagedata.StageLocked)
         {
             SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonClick);
             chanllengeMeassge.SetActive(true);
         }
-
-
-
     }
+
     public void CheckYesNo(bool value)
     {
         if (value)
@@ -74,36 +75,40 @@ public partial class StageUIController : MonoBehaviour
         }
 
     }
-    public void Cancle()
+
+    public void Cancel() // 캐릭터 3개 뜨고 취소
     {
         canChange = false;
         changeHero.SetActive(false);
         scout.SetActive(true);
     }
-    public void Cancle(GameObject ui)
+
+    public void Cancel(GameObject ui) // 캐릭터 고르기 전에 취소
     {
         ui.SetActive(false);
     }
+
     public void Option()
     {
 
     }
+
     #endregion
-    #region//파티관련
+
+    #region 파티관련
     public void scoutHero()
     {
         scout.SetActive(true);
 
     }
-    public void SelcetHero()//
+    public void SelectHero()
     {
-
         scout.SetActive(false);
         changeHero.SetActive(true);
         canChange = true;
 
     }
-    public void ChangeHero()
+    public void ChangeHero() // 왼쪽의 5개 초상화 버튼 눌렀을 때, 
     {
         if (canChange)
         {
@@ -113,10 +118,6 @@ public partial class StageUIController : MonoBehaviour
     }
 
     #endregion
-
-
-
-
 }
 
 
