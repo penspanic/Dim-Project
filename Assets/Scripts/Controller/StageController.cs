@@ -48,7 +48,7 @@ public class StageController : MonoBehaviour
         {
             eachCharacter.Start();
         }
-      //  queueCtrler.OnStart();
+        queueCtrler.OnStart(characters.ToArray());
     }
 
     private void StageEnd(bool isCleared)
