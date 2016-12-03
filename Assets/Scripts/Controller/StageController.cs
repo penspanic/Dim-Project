@@ -5,15 +5,22 @@ using System.Collections.Generic;
 public class StageController : MonoBehaviour
 {
 
+    public bool IsStageEnd
+    {
+        get;private set;
+    }
+
     UiController uiCtrler;
     CharacterQueueController queueCtrler;
 
     List<Character> characters = new List<Character>();
-
+    Monster monster;
+    int stageClearLimitTime = 0;
     private void Awake()
     {
         uiCtrler = GameObject.FindObjectOfType<UiController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
+        stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.SelectedStageId);
 
         StartCoroutine(ObjectsCreateProcess());
     }
@@ -35,8 +42,7 @@ public class StageController : MonoBehaviour
             i++;
         }
 
-        GameObject monster = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Monster/Monster_" + PlayerData.SelectedStageId));
-        monster.GetComponent<Monster>().Start();
+        monster = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Monster/Monster_" + PlayerData.SelectedStageId)).GetComponent<Monster>();
 
         yield return null;
     }
@@ -46,14 +52,23 @@ public class StageController : MonoBehaviour
     {
         foreach(var eachCharacter in characters)
         {
-            eachCharacter.Start();
+            eachCharacter.StartMove();
         }
         queueCtrler.OnStart(characters.ToArray());
+
+        monster.StartDefense();
     }
 
     private void StageEnd(bool isCleared)
     {
         uiCtrler.ShowStageEndUi(isCleared);
+
+        foreach(var eachCharacter in characters)
+        {
+            eachCharacter.StageEnd(isCleared);
+        }
+
+        IsStageEnd = true;
     }
 
 

@@ -7,7 +7,7 @@ public class DbManager : MonoBehaviour
     {
         get
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = new GameObject("DbManager").AddComponent<DbManager>();
             }
@@ -18,6 +18,14 @@ public class DbManager : MonoBehaviour
 
     /*
     어떤 데이터들을 넣을지 확인해야 함
-    아마 필요 없을 듯
+    스테이지 제한 시간
     */
+
+    int[] stageClearLimitTime = new int[] { 60, 60, 60, 60, 60, 60, 60, 60, 60 };
+    public int GetStageClearLimitTime(string stageId) // 스테이지 제한 시간
+    {
+        int stageNum = int.Parse(stageId.Substring(1, stageId.Length - 1));
+
+        return stageClearLimitTime[stageNum - 1];
+    }
 }
