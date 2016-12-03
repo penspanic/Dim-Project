@@ -22,6 +22,7 @@ public class Character : MonoBehaviour, ITouchable
     public float DefaultMoveSpeed; // 초당 움직이는 미터수
     public int DefaultActionValue; // 기본 액션 수치
     public int DefaultHp;
+    public int DefaultDamage;
 
     public bool isDead
     {
@@ -31,36 +32,47 @@ public class Character : MonoBehaviour, ITouchable
     public CharacterType type
     {
         get;
-        private set;
+        protected set;
     }
+    public int actionValue
+    {
+        get; protected set;
+    }
+
     private bool isMoving = false; // 현재 캐릭터가 움직이고 있는가?
     private float moveSpeed = 0; // 현재 이동속도, 이속 버프 적용되었을 수도 있는 수치
     private int hp = 0;
-    private int actionValue = 0;
-    private float buffRatio = 0f;
+    private int damage = 0;
 
     StageController stageCtrler;
     CharacterQueueController queueCtrler;
     HpBar hpBar;
 
-    void Awake()
+    protected virtual void Awake()
     {
         moveSpeed = DefaultMoveSpeed;
         hp = DefaultHp;
+        actionValue = DefaultActionValue;
+        damage = DefaultDamage;
 
         stageCtrler = GameObject.FindObjectOfType<StageController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
     }
 
-    public void Start()
+    public void StartMove()
     {
         isDead = false;
         isMoving = true;
     }
 
+    public void StageEnd(bool isCleared)
+    {
+        isMoving = false;
+    }
+
     // 일정 지점에서 몬스터에게 달려갈 때 호출( OnTriggerEnter2D )
-    private void RunToMonster()
+    public void RunToMonster()
     {
         moveSpeed = moveSpeed *= RunToMonsterSpeedIncreaseRatio;   
     }
@@ -75,7 +87,7 @@ public class Character : MonoBehaviour, ITouchable
     protected virtual void Update()
     {
         hpBar.SetValue((float)hp / (float)DefaultHp);
-        if(isDead == true)
+        if(isDead == true || stageCtrler.IsStageEnd == true)
         {
             return;
         }
@@ -91,29 +103,32 @@ public class Character : MonoBehaviour, ITouchable
     {
         queueCtrler.Enqueue(this);
         isMoving = false;
+        moveSpeed = DefaultMoveSpeed;
     }
 
-    public void SetBuff(float duration, float ratio)
+    public virtual void SetBuff(float duration, float ratio)
     {
-        StartCoroutine(BuffProcess(duration, ratio));
+        StartCoroutine(DamageBuffProcess(duration, ratio));
     }
 
-    private IEnumerator BuffProcess(float duration, float ratio)
+    private IEnumerator DamageBuffProcess(float duration, float buffRatio)
     {
-        buffRatio += ratio;
-        // 1-> 1.5
-        actionValue += (int)(DefaultActionValue* ratio);
+        int increasedDamage = (int)(DefaultDamage * buffRatio);
+        damage += increasedDamage;
 
         yield return new WaitForSeconds(duration);
 
-        actionValue -= (int)(DefaultActionValue * ratio);
+        damage -= increasedDamage;
+    }
 
-        buffRatio -= ratio;
-
-        if( buffRatio < 0.05f) // 수치 오차를 위해
+    public void Heal(int healValue)
+    {
+        hp += healValue;
+        if(hp > DefaultHp)
         {
-            buffRatio = 0f;
+            hp = DefaultHp;
         }
+        // 힐 버프 애니메이션 같은 처리 여기서 해주면 된다.
     }
 
     public void OnDamaged(int damage)
@@ -129,14 +144,17 @@ public class Character : MonoBehaviour, ITouchable
     private void OnDeath()
     {
         isDead = true;
-
-        stageCtrler.OnCharacterDeath(this);
+        
+        if(stageCtrler.IsStageEnd == false)
+        {
+            stageCtrler.OnCharacterDeath(this);
+        }
     }
 
     public void OnTouch()
     {
         Debug.Log("OnTouch : " + name);
-        if(isDead == false)
+        if(isDead == false && isMoving == true)
         {
             ResetPosition();
         }
@@ -146,6 +164,7 @@ public class Character : MonoBehaviour, ITouchable
     {
         if(other.CompareTag("Monster") == true)
         {
+            other.GetComponent<Monster>().OnDamaged(damage);
             DoAction();
             ResetPosition();
         }
