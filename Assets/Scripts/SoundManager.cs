@@ -17,11 +17,11 @@ public class SoundManager : MonoBehaviour
 
     }
 
-    private Dictionary<BGM, AudioClip> bgm;
-    private Dictionary<Effect, AudioClip> effect;
+    private  Dictionary<BGM, AudioClip> bgm;
+    private  Dictionary<Effect, AudioClip> effect;
 
-    private AudioSource EffectSource;
-    private AudioSource BgmSource;
+    private  AudioSource EffectSource;
+    private  AudioSource BgmSource;
 
     private static SoundManager _instance;
 
@@ -38,17 +38,28 @@ public class SoundManager : MonoBehaviour
             return _instance;
         }
     }
-
-    public void LoadSound()//사운드 추가
+    void Awake()
     {
         EffectSource = gameObject.AddComponent<AudioSource>();
         BgmSource = gameObject.AddComponent<AudioSource>();
+        BgmSource.loop = true;
+        LoadSound();
+        
+    }
+    void Start()
+    {
+        LoadSound();
+    }
+    public void LoadSound()//사운드 추가하는곳
+    {
+       
 
         effect = new Dictionary<Effect, AudioClip>();
         bgm = new Dictionary<BGM, AudioClip>();
 
         effect.Add(Effect.button, Resources.Load("Sound/Button") as AudioClip);
-        bgm.Add(BGM.Logo, Resources.Load("Sound/Logo") as AudioClip);
+        bgm.Add(BGM.Logo, Resources.Load("Sound/(BGM)DeongeonCatHeroes_Lobby") as AudioClip);
+        bgm.Add(BGM.Menu, Resources.Load("(BGM)DeongeonCatHeroes_Lobby(Positive)") as AudioClip);
 
     }
     public void PlayEffectSound(Effect Sound)
