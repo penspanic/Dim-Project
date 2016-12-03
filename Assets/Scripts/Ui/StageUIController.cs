@@ -18,8 +18,9 @@ public partial class StageUIController : MonoBehaviour
     [SerializeField]
     private GameObject checkYesNo;
     [SerializeField]
+    private GameObject option;
+    [SerializeField]
     private Button[] heroButtons;
-
     //선택된 캐릭터
     [SerializeField]
     private bool canChange;
@@ -90,7 +91,7 @@ public partial class StageUIController : MonoBehaviour
 
     public void Option()
     {
-
+        option.SetActive(true);
     }
 
     #endregion
@@ -117,6 +118,17 @@ public partial class StageUIController : MonoBehaviour
         }
     }
 
+    #endregion
+    #region 옵션
+    public void Reset()
+    {
+
+    }
+    public void Credit()
+    {
+    
+    }
+   
     #endregion
 }
 
