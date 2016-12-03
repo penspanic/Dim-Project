@@ -29,6 +29,11 @@ public class Character : MonoBehaviour, ITouchable
         get;
         protected set;
     }
+    public bool isInvincible
+    {
+        get;
+        protected set;
+    }
     public CharacterType type
     {
         get;
@@ -82,11 +87,14 @@ public class Character : MonoBehaviour, ITouchable
     // 몬스터와 닿았을 때 하는 행동( OnTriggerEnter2D )
     protected virtual void DoAction()
     {
+        isInvincible = true;
+        isMoving = false;
         animator.Play("skill", 0);
     }
 
     public void OnSkillMotionEnd()
     {
+        isInvincible = false;
         ResetPosition();
     }
 
@@ -141,7 +149,7 @@ public class Character : MonoBehaviour, ITouchable
 
     public void OnDamaged(int damage)
     {
-        if(isDead == true)
+        if(isDead == true || isInvincible == true)
         {
             return;
         }
@@ -168,7 +176,6 @@ public class Character : MonoBehaviour, ITouchable
 
     public void OnTouch()
     {
-        Debug.Log("OnTouch : " + name);
         if(isDead == false && isMoving == true)
         {
             ResetPosition();

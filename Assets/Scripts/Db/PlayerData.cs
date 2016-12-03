@@ -41,7 +41,8 @@ public class PlayerData : MonoBehaviour
 
     void InitData()
     {
-        OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Warrior, CharacterType.Priest, CharacterType.Wizard });
+        //OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Warrior, CharacterType.Priest, CharacterType.Wizard });
+        OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Assassin, CharacterType.Priest, CharacterType.Shielder, CharacterType.Wizard });
         SelectedCharacters.AddRange(OwnedCharacters);
         SelectedStageId = "S1";
         LastClearedStageId = null;

@@ -29,12 +29,14 @@ public class Monster : MonoBehaviour
     StageController stageCtrler;
     HpBar hpBar;
     Animator animator;
+    Collider2D defaultAttackCollider;
 
     void Awake()
     {
         stageCtrler = GameObject.FindObjectOfType<StageController>();
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
         animator = GetComponent<Animator>();
+        defaultAttackCollider = transform.FindChild("Default Attack").GetComponent<Collider2D>();
 
         startHp = hp;
     }
@@ -130,9 +132,15 @@ public class Monster : MonoBehaviour
 
             if(isDead == false) // 타이밍상 WaitForSeconds한 후 죽어있을 수도 있다.
             {
+                defaultAttackCollider.enabled = true;
                 animator.Play("Attack", 0);
             }
         }
+    }
+
+    public void OnDefaultAttackMotionEnd()
+    {
+        defaultAttackCollider.enabled = false;
     }
 
     IEnumerator ShieldProcess()
