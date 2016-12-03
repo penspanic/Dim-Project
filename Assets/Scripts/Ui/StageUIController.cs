@@ -27,7 +27,7 @@ public partial class StageUIController : MonoBehaviour
 public partial class StageUIController : MonoBehaviour
 {
 
-    
+
     #region//싱글톤 
     public static StageUIController instance
     {
@@ -44,12 +44,21 @@ public partial class StageUIController : MonoBehaviour
     }
     #endregion
     #region//메뉴
-
-    public void ChallengeCheck()
+    void Start()
     {
-        chanllengeMeassge.SetActive(true);
+        StartCoroutine(SceneController.instance.FadeIn(1));
+        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Logo);
     }
+    public void ChallengeCheck(StageData stagedata)
+    {
+        if (!stagedata.Stagelock)
+        {
+            chanllengeMeassge.SetActive(true);
+        }
 
+
+
+    }
     public void CheckYesNo(bool value)
     {
         if (value)
@@ -62,40 +71,38 @@ public partial class StageUIController : MonoBehaviour
         }
 
     }
-    public void Cancel()
+    public void Cancle()
     {
         canChange = false;
         changeHero.SetActive(false);
         scout.SetActive(true);
     }
-    public  void  Cancel(GameObject ui)
+    public void Cancle(GameObject ui)
     {
         ui.SetActive(false);
     }
-
     public void Option()
     {
 
     }
-
     #endregion
     #region//파티관련
-    public void ScoutHero()
+    public void scoutHero()
     {
         scout.SetActive(true);
-    }
 
-    public void SelectHero()
+    }
+    public void SelcetHero()//
     {
+
         scout.SetActive(false);
         changeHero.SetActive(true);
         canChange = true;
 
     }
-
     public void ChangeHero()
     {
-        if(canChange)
+        if (canChange)
         {
             changeHero.SetActive(false);
             canChange = false;
@@ -103,6 +110,9 @@ public partial class StageUIController : MonoBehaviour
     }
 
     #endregion
+
+
+
 
 }
 
