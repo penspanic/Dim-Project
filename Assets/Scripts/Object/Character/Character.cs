@@ -21,7 +21,7 @@ public class Character : MonoBehaviour, ITouchable
 
     public float DefaultMoveSpeed; // 초당 움직이는 미터수
     public int DefaultActionValue; // 기본 액션 수치
-    public int DefaultHp;
+    public int hp;
     public int DefaultDamage;
 
     public bool isDead
@@ -41,8 +41,8 @@ public class Character : MonoBehaviour, ITouchable
 
     private bool isMoving = false; // 현재 캐릭터가 움직이고 있는가?
     private float moveSpeed = 0; // 현재 이동속도, 이속 버프 적용되었을 수도 있는 수치
-    private int hp = 0;
     private int damage = 0;
+    private int startHp = 0;
 
     StageController stageCtrler;
     CharacterQueueController queueCtrler;
@@ -51,9 +51,9 @@ public class Character : MonoBehaviour, ITouchable
     protected virtual void Awake()
     {
         moveSpeed = DefaultMoveSpeed;
-        hp = DefaultHp;
         actionValue = DefaultActionValue;
         damage = DefaultDamage;
+        startHp = hp;
 
         stageCtrler = GameObject.FindObjectOfType<StageController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
@@ -86,7 +86,7 @@ public class Character : MonoBehaviour, ITouchable
     // 기본적인 처리( 이동 등등 )
     protected virtual void Update()
     {
-        hpBar.SetValue((float)hp / (float)DefaultHp);
+        hpBar.SetValue((float)hp / (float)startHp);
         if(isDead == true || stageCtrler.IsStageEnd == true)
         {
             return;
@@ -124,9 +124,9 @@ public class Character : MonoBehaviour, ITouchable
     public void Heal(int healValue)
     {
         hp += healValue;
-        if(hp > DefaultHp)
+        if(hp > startHp)
         {
-            hp = DefaultHp;
+            hp = startHp;
         }
         // 힐 버프 애니메이션 같은 처리 여기서 해주면 된다.
     }

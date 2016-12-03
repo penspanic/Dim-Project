@@ -5,14 +5,14 @@ public class Monster : MonoBehaviour
 {
     // TODO : Monster 프리팹 Monster 태그 설정
 
-    public int DefaultHp;
+    public int hp;
     public int DefaultShieldHp;
-    public int damage;
-    public Vector2 SkillCoolTimeRange;
+
+    public Vector2 defaultAttackCoolTimeRange;
     public Vector2 ShieldCoolTimeRange;
 
     private bool canUseSKill = false;
-    private int hp;
+    private int startHp = 0;
     private int shieldHp;
 
     public bool isDead { get; protected set; }
@@ -29,12 +29,12 @@ public class Monster : MonoBehaviour
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
         animator = GetComponent<Animator>();
 
-        hp = DefaultHp;
+        startHp = hp;
     }
 
     public void StartDefense()
     {
-        StartCoroutine(SkillCoolTimeProcess()); // 처음에 스킬 쿨타임이 돌아야 한다.
+        StartCoroutine(DefaultAttackProcess());
         StartCoroutine(ShieldProcess());
     }
 
@@ -81,16 +81,6 @@ public class Monster : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void OnSkillUse()
-    {
-        if (canUseSKill == false)
-        {
-            return;
-        }
-
-        StartCoroutine(SkillCoolTimeProcess());
-    }
-
     public void Stun(float duration)
     {
         StartCoroutine(StunProcess(duration));
@@ -109,16 +99,19 @@ public class Monster : MonoBehaviour
         shieldHp = 0;
     }
 
-    // 스킬 이름을 명시적으로 적어줘야 할듯?? 몬스터는 스킬이 여러개니깐
-    IEnumerator SkillCoolTimeProcess()
+    IEnumerator DefaultAttackProcess()
     {
-        canUseSKill = false;
+        while(isDead == false && stageCtrler.IsStageEnd == false)
+        {
+            float attackCoolTime = Random.Range(defaultAttackCoolTimeRange.x, defaultAttackCoolTimeRange.y);
 
-        float coolTime = Random.Range(SkillCoolTimeRange.x, SkillCoolTimeRange.y);
+            yield return new WaitForSeconds(attackCoolTime);
 
-        yield return new WaitForSeconds(coolTime);
-
-        canUseSKill = true;
+            if(isDead == false) // 타이밍상 WaitForSeconds한 후 죽어있을 수도 있다.
+            {
+                animator.Play("Attack", 0);
+            }
+        }
     }
 
     IEnumerator ShieldProcess()
@@ -138,14 +131,11 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        hpBar.SetValue((float)hp / (float)DefaultHp);
+        hpBar.SetValue((float)hp / (float)startHp);
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Character") == true)
-        {
-            other.GetComponent<Character>().OnDamaged(damage);
-        }
+
     }
 }
