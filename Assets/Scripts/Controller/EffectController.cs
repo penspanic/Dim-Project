@@ -14,7 +14,13 @@ public enum EffectType
     AssassinSkill,
     WarriorSkill,
     ShielderSkill,
-    CharacterHitted
+    CharacterHitted,
+    MonsterAoeSkillWarning,
+    BerserkModeThunder,
+    ChracterReset,
+    StunDizzy,
+    MonsterAoeSkill
+
 }
 
 public class EffectController : MonoBehaviour
@@ -34,6 +40,11 @@ public class EffectController : MonoBehaviour
         effects.Add(EffectType.WarriorSkill, Resources.Load<GameObject>("Prefabs/Effect/FX_war_attack"));
         effects.Add(EffectType.ShielderSkill, Resources.Load<GameObject>("Prefabs/Effect/FX_Shd_skill"));
         effects.Add(EffectType.CharacterHitted, Resources.Load<GameObject>("Prefabs/Effect/Fx_hit_e2"));
+        effects.Add(EffectType.MonsterAoeSkillWarning, Resources.Load<GameObject>("Prefabs/Effect/FX_Boss_Warning"));
+        effects.Add(EffectType.BerserkModeThunder, Resources.Load<GameObject>("Prefabs/Effect/FX_boss_skill_steam"));
+        effects.Add(EffectType.ChracterReset, Resources.Load<GameObject>("Prefabs/Effect/FX_death_d1"));
+        effects.Add(EffectType.StunDizzy, Resources.Load<GameObject>("Prefabs/Effect/FX_stun_e1"));
+        effects.Add(EffectType.MonsterAoeSkill, Resources.Load<GameObject>("Prefabs/Effect/FX_boss_Attack"));
     }
 
     public void ShowEffect(EffectType effectType, float duration, Vector3 position, Transform parent = null)

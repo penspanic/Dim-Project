@@ -23,11 +23,12 @@ public class Monster : MonoBehaviour
     private int startHp = 0;
     private int shieldHp;
 
-    private float berserkModeReduceRatio = 0.33f;
+    private float berserkModeReduceRatio = 0.2f;
 
     public bool isNextAttackIsDeadlyAttack = false; // 다음 평타가 치명타인가?
 
     StageController stageCtrler;
+    EffectController effectCtrler;
     HpBar hpBar;
     Animator animator;
     Collider2D defaultAttackCollider;
@@ -35,6 +36,7 @@ public class Monster : MonoBehaviour
     void Awake()
     {
         stageCtrler = GameObject.FindObjectOfType<StageController>();
+        effectCtrler = GameObject.FindObjectOfType<EffectController>();
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
         animator = GetComponent<Animator>();
         defaultAttackCollider = transform.FindChild("Default Attack").GetComponent<Collider2D>();
@@ -46,8 +48,6 @@ public class Monster : MonoBehaviour
 
     public void StartDefense()
     {
-
-      
         StartCoroutine(DefaultAttackProcess());
         StartCoroutine(ShieldProcess());
         StartCoroutine(AoeSkillProcess());
@@ -95,10 +95,6 @@ public class Monster : MonoBehaviour
 
     }
 
-
-
-
-
     private void OnDeath()
     {
         Debug.Log("Monster dead");
@@ -117,6 +113,7 @@ public class Monster : MonoBehaviour
 
     public void Stun(float duration)
     {
+        effectCtrler.ShowEffect(EffectType.StunDizzy, 2f, transform.position + Vector3.up);
         StartCoroutine(StunProcess(duration));
     }
 
@@ -194,6 +191,12 @@ public class Monster : MonoBehaviour
                 break;
             }
 
+            Vector2 aoeSkillRangeX = new Vector2(-4f, 4f);
+            float targetPosX = Random.Range(aoeSkillRangeX.x, aoeSkillRangeX.y);
+
+            effectCtrler.ShowEffect(EffectType.MonsterAoeSkillWarning, 2f, new Vector3(targetPosX, -2.5f, 0));
+            yield return new WaitForSeconds(2f);
+            effectCtrler.ShowEffect(EffectType.MonsterAoeSkill, 3f, new Vector3(targetPosX, -3f, 0f));
             Character[] characters = GameObject.FindObjectsOfType<Character>();
 
             foreach (Character eachCharacter in characters)
@@ -203,7 +206,10 @@ public class Monster : MonoBehaviour
                     continue;
                 }
 
-                eachCharacter.OnDamaged(AoeSkillDamage);
+                if(Mathf.Abs(targetPosX - eachCharacter.transform.position.x) < 2f)
+                {
+                    eachCharacter.OnDamaged(AoeSkillDamage);
+                }
             }
         }
     }
@@ -226,7 +232,6 @@ public class Monster : MonoBehaviour
         }
     }
 
-    // 광전사, 평타 속도가 2배 빨라지게?
     IEnumerator BerserkSkillProces()
     {
         while (isDead == false)
@@ -241,6 +246,7 @@ public class Monster : MonoBehaviour
             }
 
             isBerserkMode = true;
+            effectCtrler.ShowEffect(EffectType.BerserkModeThunder, BerserkModeDuration, transform.position + Vector3.left * 3);
 
             yield return new WaitForSeconds(BerserkModeDuration);
 

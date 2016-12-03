@@ -152,7 +152,7 @@ public class Character : MonoBehaviour, ITouchable
         // 힐 버프 애니메이션 같은 처리 여기서 해주면 된다.
     }
 
-    public void OnDamaged(int damage)
+    public void OnDamaged(int damage, bool isResetPos = false)
     {
         if(isDead == true || isInvincible == true)
         {
@@ -164,6 +164,12 @@ public class Character : MonoBehaviour, ITouchable
         if(hp <= 0)
         {
             OnDeath();
+            return;
+        }
+        
+        if(isResetPos == true)
+        {
+            ResetPosition();
         }
     }
 
@@ -177,6 +183,18 @@ public class Character : MonoBehaviour, ITouchable
         {
             stageCtrler.OnCharacterDeath(this);
         }
+
+        effectCtrler.ShowEffect(EffectType.ChracterReset, 1f, transform.position);
+        StartCoroutine(DeadFallProcess());
+    }
+
+    IEnumerator DeadFallProcess()
+    {
+        GetComponent<Rigidbody2D>().isKinematic = false;
+
+        yield return new WaitForSeconds(2f);
+
+        GetComponent<Rigidbody2D>().isKinematic = true;
     }
 
     public void OnTouch()

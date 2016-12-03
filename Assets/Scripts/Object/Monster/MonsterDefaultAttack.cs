@@ -29,11 +29,11 @@ public class MonsterDefaultAttack : MonoBehaviour
                 monster.isNextAttackIsDeadlyAttack = false;
 
                 effectCtrler.ShowEffect(EffectType.CharacterHitted, 1f, transform.position);
-                other.GetComponent<Character>().OnDamaged((int)(damage * DeadlySkillDamageRatio));
+                other.GetComponent<Character>().OnDamaged((int)(damage * DeadlySkillDamageRatio), true);
                 return;
             }
             effectCtrler.ShowEffect(EffectType.CharacterHitted, 1f, transform.position);
-            other.GetComponent<Character>().OnDamaged(damage);
+            other.GetComponent<Character>().OnDamaged(damage, true);
         }
     }
 }

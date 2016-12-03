@@ -8,9 +8,11 @@ public class CharacterQueueController : MonoBehaviour
     Queue<Character> queuedCharacters = new Queue<Character>();
     Character[] characters;
 
+    EffectController effectCtrler;
+
     void Awake()
     {
-
+        effectCtrler = GameObject.FindObjectOfType<EffectController>();
     }
 
     public void OnStart(Character[] characters)
@@ -20,6 +22,8 @@ public class CharacterQueueController : MonoBehaviour
 
     public void Enqueue(Character target)
     {
+        effectCtrler.ShowEffect(EffectType.ChracterReset, 1f, target.transform.position);
+
         target.transform.position = CharacterResetPosition;
         target.transform.Translate(Vector3.up * 1.5f * queuedCharacters.Count);
 
@@ -51,19 +55,6 @@ public class CharacterQueueController : MonoBehaviour
             {
                 canDeque = false;
             }
-        }
-
-        if (canDeque == true && queuedCharacters.Count > 0)
-        {
-            //Character dequedCharacter = queuedCharacters.Dequeue();
-            //if (queuedCharacters.Count > 1)
-            //{
-            //    StartCoroutine(MoveDownProcess(dequedCharacter));
-            //}
-            //else
-            //{
-            //    dequedCharacter.Start();
-            //}
         }
 
         foreach (var eachCharacter in queuedCharacters)
