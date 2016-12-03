@@ -120,7 +120,8 @@ public class SoundManager : MonoBehaviour
     {
         if (bgm[Sound] != null)
         {
-            BgmSource.PlayOneShot(bgm[Sound]);
+            BgmSource.clip = bgm[Sound];
+            BgmSource.Play();
 
         }
     }

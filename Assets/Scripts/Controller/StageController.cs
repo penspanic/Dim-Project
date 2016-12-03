@@ -48,6 +48,8 @@ public class StageController : MonoBehaviour
     // UiController에서 호출하자.
     public void StageStart()
     {
+        SoundManager.instance.PlayBgmSound(SoundManager.BGM.InGame_Default);
+
         foreach(var eachCharacter in characters)
         {
             eachCharacter.StartMove();
