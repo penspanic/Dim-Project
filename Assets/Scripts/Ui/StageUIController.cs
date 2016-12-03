@@ -47,12 +47,13 @@ public partial class StageUIController : MonoBehaviour
     void Start()
     {
         StartCoroutine(SceneController.instance.FadeIn(1));
-        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Logo);
+        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Lobby);
     }
     public void ChallengeCheck(StageData stagedata)
     {
         if (!stagedata.Stagelock)
         {
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonClick);
             chanllengeMeassge.SetActive(true);
         }
 
@@ -63,10 +64,12 @@ public partial class StageUIController : MonoBehaviour
     {
         if (value)
         {
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonSuccess);
             StartCoroutine(SceneController.instance.FadeOut(1, "InGame"));
         }
         else
         {
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonClose);
             checkYesNo.SetActive(false);
         }
 

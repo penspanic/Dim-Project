@@ -12,6 +12,7 @@ public class Assassin : Character
     protected override void DoAction()
     {
         base.DoAction();
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.Assain_Hit);
     }
 
     public override void SetBuff(float duration, float ratio)

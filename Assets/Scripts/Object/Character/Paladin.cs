@@ -16,7 +16,7 @@ public class Paladin : Character
     protected override void DoAction()
     {
         base.DoAction();
-
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.Paladin_HitAndHeal);
         foreach (Character eachCharacter in characters)
         {
             eachCharacter.Heal(actionValue);

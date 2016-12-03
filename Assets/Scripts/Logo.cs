@@ -8,7 +8,7 @@ public class Logo : MonoBehaviour
     
     void Start()
     {
-        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Logo);
+        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Lobby);
     }
     // Update is called once per frame
     void Update()

@@ -18,7 +18,7 @@ public class Priest : Character
     protected override void DoAction()
     {
         base.DoAction();
-
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.PriestHeal);
         foreach(Character eachCharacter in characters)
         {
             eachCharacter.Heal(actionValue);

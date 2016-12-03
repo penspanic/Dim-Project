@@ -110,6 +110,7 @@ public class Monster : MonoBehaviour
 
     public void BreakShield()
     {
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.BreakShield);
         hasShield = false;
         shieldHp = 0;
     }

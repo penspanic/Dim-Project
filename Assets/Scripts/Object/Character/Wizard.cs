@@ -12,6 +12,7 @@ public class Wizard : Character
     protected override void DoAction()
     {
         base.DoAction();
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.Wizard_Hit);   
     }
 
     public override void SetBuff(float duration, float ratio)
