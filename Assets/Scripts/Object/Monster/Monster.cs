@@ -21,11 +21,13 @@ public class Monster : MonoBehaviour
 
     StageController stageCtrler;
     HpBar hpBar;
+    Animator animator;
 
     void Awake()
     {
         stageCtrler = GameObject.FindObjectOfType<StageController>();
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
+        animator = GetComponent<Animator>();
 
         hp = DefaultHp;
     }
@@ -65,12 +67,18 @@ public class Monster : MonoBehaviour
 
     private void OnDeath()
     {
+        Debug.Log("Monster dead");
         isDead = true;
-
+        animator.Play("Die", 0);
         if(stageCtrler.IsStageEnd == false)
         {
             stageCtrler.OnMonsterDeath(this);
         }
+    }
+
+    public void OnDieAnimationEnd()
+    {
+        Destroy(this.gameObject);
     }
 
     private void OnSkillUse()
