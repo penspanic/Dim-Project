@@ -39,13 +39,15 @@ public class Monster : MonoBehaviour
         animator = GetComponent<Animator>();
         defaultAttackCollider = transform.FindChild("Default Attack").GetComponent<Collider2D>();
         defaultAttackCollider.enabled = false;
-
         startHp = hp;
+        StartCoroutine(FillHp());
 
     }
 
     public void StartDefense()
     {
+
+      
         StartCoroutine(DefaultAttackProcess());
         StartCoroutine(ShieldProcess());
         StartCoroutine(AoeSkillProcess());
@@ -245,6 +247,25 @@ public class Monster : MonoBehaviour
             isBerserkMode = false;
         }
         yield return null;
+    }
+    IEnumerator FillHp()
+    {
+        float elapsedTime = 0f;
+        float fillTime = 1f;
+       while(elapsedTime<fillTime)
+        {
+            elapsedTime += Time.deltaTime;
+            
+            hp =(int) Mathf.Lerp(0f, startHp,elapsedTime / fillTime);
+            if(hp==0)
+            {
+                hp = 1;
+            }
+            yield return null;
+
+        }
+
+       
     }
 
     void Update()
