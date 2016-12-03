@@ -59,6 +59,7 @@ public class SoundManager : MonoBehaviour
             return _instance;
         }
     }
+    
     void Awake()
     {
         EffectSource = gameObject.AddComponent<AudioSource>();
@@ -101,6 +102,7 @@ public class SoundManager : MonoBehaviour
         effect.Add(Effect.Shielder_Stun, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Shielder_Stun") as AudioClip);
         effect.Add(Effect.Warrior_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Warrior_Hit") as AudioClip);
         effect.Add(Effect.Wizard_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Wizard_Hit") as AudioClip);
+        effect.Add(Effect.BreakShield, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_BreakShield") as AudioClip);
 
         effect.Add(Effect.ButtonClick, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_UI_Click") as AudioClip);
         effect.Add(Effect.ButtonClose, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_UI_Close") as AudioClip);
