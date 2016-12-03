@@ -13,7 +13,8 @@ public enum EffectType
     PaladinSkill2,
     AssassinSkill,
     WarriorSkill,
-    ShielderSkill
+    ShielderSkill,
+    CharacterHitted
 }
 
 public class EffectController : MonoBehaviour
@@ -32,6 +33,7 @@ public class EffectController : MonoBehaviour
         effects.Add(EffectType.AssassinSkill, Resources.Load<GameObject>("Prefabs/Effect/FX_tri_attack"));
         effects.Add(EffectType.WarriorSkill, Resources.Load<GameObject>("Prefabs/Effect/FX_war_attack"));
         effects.Add(EffectType.ShielderSkill, Resources.Load<GameObject>("Prefabs/Effect/FX_Shd_skill"));
+        effects.Add(EffectType.CharacterHitted, Resources.Load<GameObject>("Prefabs/Effect/Fx_hit_e2"));
     }
 
     public void ShowEffect(EffectType effectType, float duration, Vector3 position, Transform parent = null)

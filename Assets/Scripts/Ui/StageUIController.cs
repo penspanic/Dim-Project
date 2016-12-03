@@ -52,6 +52,11 @@ public partial class StageUIController : MonoBehaviour
     {
         StartCoroutine(SceneController.instance.FadeIn(1));
         SoundManager.instance.PlayBgmSound(SoundManager.BGM.Lobby);
+
+        if(SceneController.instance.haveToScout == true)
+        {
+            StartCoroutine(HaveToScoutProcess());
+        }
     }
     public void ChallengeCheck(StageData stagedata)
     {
@@ -75,6 +80,15 @@ public partial class StageUIController : MonoBehaviour
             checkYesNo.SetActive(false);
         }
 
+    }
+
+    IEnumerator HaveToScoutProcess()
+    {
+        SceneController.instance.haveToScout = false;
+
+        yield return new WaitForSeconds(1f);
+
+        scoutHero();
     }
 
     public void Cancel() // 캐릭터 3개 뜨고 취소

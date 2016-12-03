@@ -108,7 +108,10 @@ public class Character : MonoBehaviour, ITouchable
             return;
         }
 
-        hpBar.SetValue((float)hp / (float)startHp);
+        if(hpBar != null)
+        {
+            hpBar.SetValue((float)hp / (float)startHp);
+        }
 
         if( isMoving == true )
         {

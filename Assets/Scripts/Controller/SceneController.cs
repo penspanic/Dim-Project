@@ -17,6 +17,8 @@ public class SceneController : MonoBehaviour
         }
     }
     private static SceneController _instance;
+
+    public bool haveToScout = false; // 스테이지 끝나고 영웅 선택할 수 있게
     private SpriteRenderer sprRenderer;
 
     void Awake()

@@ -2,8 +2,11 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class UiController : MonoBehaviour
+public class InGameUiController : MonoBehaviour
 {
+    public GameObject stageWin;
+    public GameObject stageLose;
+
     private StageController stageCtrler;
     private Text timeText;
     private int stageClearLimitTime = 0;
@@ -43,6 +46,30 @@ public class UiController : MonoBehaviour
     public void ShowStageEndUi(bool isCleared)
     {
         stageClearLimitTime = 0;
+        timeText.enabled = false;
         StopCoroutine(StageClearTimeProcess());
+
+        if(isCleared == true)
+        {
+            stageWin.SetActive(true);
+        }
+        else
+        {
+            stageLose.SetActive(true);
+        }
+    }
+
+    bool isSceneChanging = false;
+    public void OnChangeScene()
+    {
+        if(isSceneChanging == true)
+        {
+            return;
+        }
+
+        isSceneChanging = true;
+
+        SceneController.instance.haveToScout = true;
+        StartCoroutine(SceneController.instance.FadeOut(1f, "Menu"));
     }
 }

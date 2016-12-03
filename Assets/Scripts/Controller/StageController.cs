@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 public class StageController : MonoBehaviour
 {
-
     public bool IsStageEnd
     {
         get; private set;
     }
 
-    UiController uiCtrler;
+    InGameUiController uiCtrler;
     CharacterQueueController queueCtrler;
 
     List<Character> characters = new List<Character>();
@@ -18,7 +17,7 @@ public class StageController : MonoBehaviour
     int stageClearLimitTime = 0;
     private void Awake()
     {
-        uiCtrler = GameObject.FindObjectOfType<UiController>();
+        uiCtrler = GameObject.FindObjectOfType<InGameUiController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
         stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.instance.GetLastClearedStageNum());
 
@@ -88,7 +87,7 @@ public class StageController : MonoBehaviour
         {
             SoundManager.instance.PlayBgmSound(SoundManager.BGM.Fail);
             StageEnd(false);
-            
+
         }
     }
 
@@ -96,23 +95,24 @@ public class StageController : MonoBehaviour
     {
         StageEnd(true);
     }
-   private  void CheckCharacterCount()
+    private void CheckCharacterCount()
     {
-        int deadCount=0;
+        int deadCount = 0;
         foreach (var eachCharacter in characters)
         {
 
             if (eachCharacter.isDead)
             {
                 deadCount++;
-                if(deadCount==2&&SoundManager.instance.BgmAudioSource.clip.name!= "(BGM)DeongeonCatHeroes_InGame(Player)")
+                if (deadCount == 2 && SoundManager.instance.BgmAudioSource.clip.name != "(BGM)DeongeonCatHeroes_InGame(Player)")
                 {
                     SoundManager.instance.PlayBgmSound(SoundManager.BGM.InGame_Player);
                 }
             }
         }
     }
-   void Update()
+
+    void Update()
     {
         CheckCharacterCount();
     }

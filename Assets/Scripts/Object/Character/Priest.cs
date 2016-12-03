@@ -25,7 +25,7 @@ public class Priest : Character
             {
                 continue;
             }
-            effectCtrler.ShowEffect(EffectType.PriestSkill, 1f, eachCharacter.transform.position);
+            effectCtrler.ShowEffect(EffectType.PriestSkill, 1f, eachCharacter.transform.position, eachCharacter.transform);
             eachCharacter.Heal(actionValue);
         }
     }

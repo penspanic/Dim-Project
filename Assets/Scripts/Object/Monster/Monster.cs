@@ -84,7 +84,7 @@ public class Monster : MonoBehaviour
             OnDeath();
             SoundManager.instance.PlayBgmSound(SoundManager.BGM.Clear);
         }
-        else if ((float)hp / startHp <= 0.9f&&SoundManager.instance.BgmAudioSource.clip.name!= "(BGM)DeongeonCatHeroes_InGame(Boss)")
+        else if ((float)hp / startHp <= 0.3f&&SoundManager.instance.BgmAudioSource.clip.name!= "(BGM)DeongeonCatHeroes_InGame(Boss)")
         {
 
             SoundManager.instance.PlayBgmSound(SoundManager.BGM.InGame_Boss);
@@ -254,7 +254,10 @@ public class Monster : MonoBehaviour
             return;
         }
 
-        hpBar.SetValue((float)hp / (float)startHp);
+        if(hpBar != null)
+        {
+            hpBar.SetValue((float)hp / (float)startHp);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
