@@ -47,14 +47,9 @@ public partial class StageUIController : MonoBehaviour
 
     public void ChallengeCheck()
     {
-        
-      
-        
-     
-        //PlayerData.SelectedStageId = gameObject.GetComponent<StageData>().Stagenumber;
         chanllengeMeassge.SetActive(true);
-        
     }
+
     public void CheckYesNo(bool value)
     {
         if (value)
@@ -67,48 +62,47 @@ public partial class StageUIController : MonoBehaviour
         }
 
     }
-    public void Cancle()
+    public void Cancel()
     {
         canChange = false;
         changeHero.SetActive(false);
         scout.SetActive(true);
     }
-    public  void  Cancle(GameObject ui)
+    public  void  Cancel(GameObject ui)
     {
         ui.SetActive(false);
     }
+
     public void Option()
     {
 
     }
+
     #endregion
     #region//파티관련
-    public void scoutHero()
+    public void ScoutHero()
     {
         scout.SetActive(true);
-
     }
-    public void SelcetHero()//
+
+    public void SelectHero()
     {
-        
         scout.SetActive(false);
         changeHero.SetActive(true);
         canChange = true;
 
     }
+
     public void ChangeHero()
     {
         if(canChange)
         {
-            changeHero.SetActive(false) ;
+            changeHero.SetActive(false);
             canChange = false;
         }
     }
 
     #endregion
-
-   
-
 
 }
 
