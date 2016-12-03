@@ -37,6 +37,7 @@ public class Monster : MonoBehaviour
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
         animator = GetComponent<Animator>();
         defaultAttackCollider = transform.FindChild("Default Attack").GetComponent<Collider2D>();
+        defaultAttackCollider.enabled = false;
 
         startHp = hp;
     }
