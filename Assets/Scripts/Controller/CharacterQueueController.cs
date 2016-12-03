@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CharacterQueueController : MonoBehaviour
 {
-    readonly Vector2 CharacterResetPosition = new Vector2(-8f, -3f);
+    readonly Vector2 CharacterResetPosition = new Vector2(-8f, -3.5f);
     Queue<Character> queuedCharacters = new Queue<Character>();
     Character[] characters;
 
@@ -20,19 +20,14 @@ public class CharacterQueueController : MonoBehaviour
 
     public void Enqueue(Character target)
     {
+        queuedCharacters.Enqueue(target);
+
         target.transform.position = CharacterResetPosition;
         target.transform.Translate(Vector3.up * 1.5f * queuedCharacters.Count);
-
-        queuedCharacters.Enqueue(target);
     }
 
     void Update()
     {
-        if(characters == null)
-        {
-            return;
-        }
-
         List<Character> notQueuedCharacters = new List<Character>();
 
         foreach(var eachCharacter in characters)
@@ -53,31 +48,14 @@ public class CharacterQueueController : MonoBehaviour
             }
         }
 
-        if(canDeque == true && queuedCharacters.Count > 0)
+        if(canDeque== true)
         {
-            //Character dequedCharacter = queuedCharacters.Dequeue();
-            //if (queuedCharacters.Count > 1)
-            //{
-            //    StartCoroutine(MoveDownProcess(dequedCharacter));
-            //}
-            //else
-            //{
-            //    dequedCharacter.Start();
-            //}
-        }
-
-        foreach(var eachCharacter in queuedCharacters)
-        {
-            eachCharacter.transform.Translate(Vector3.down * Time.deltaTime);
-        }
-        if (queuedCharacters.Count > 0 && Mathf.Abs(queuedCharacters.Peek().transform.position.y - CharacterResetPosition.y) < 0.05f)
-        {
+            StartCoroutine(MoveDownProcess());
             Character dequedCharacter = queuedCharacters.Dequeue();
-            dequedCharacter.StartMove();
         }
     }
 
-    IEnumerator MoveDownProcess(Character dequedCharacter)
+    IEnumerator MoveDownProcess()
     {
         Character[] tempCharacters = queuedCharacters.ToArray();
 
@@ -87,7 +65,7 @@ public class CharacterQueueController : MonoBehaviour
             startPositionList.Add(eachCharacter.transform.position);
         }
 
-        float moveYValue = CharacterResetPosition.y - dequedCharacter.transform.position.y;
+        float moveYValue = -1f;
         float elaspedTime = 0f;
         const float moveTime = 1f;
         while (elaspedTime <= moveTime)
@@ -96,14 +74,10 @@ public class CharacterQueueController : MonoBehaviour
 
             for(int i = 0; i<tempCharacters.Length;++i)
             {
-                Vector3 newPos = tempCharacters[i].transform.position;
-                newPos.y = Mathf.Lerp(startPositionList[i].y, startPositionList[i].y + moveYValue, elaspedTime / moveTime);
-                tempCharacters[i].transform.position = newPos;
+              //  tempCharacters[i].transform.position = Mathf.Lerp(startPositionList[i].y, startPositionList[i].y + moveYValue, elaspedTime / moveTime);
             }
 
             yield return null;
         }
-
-        dequedCharacter.StartMove();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 //변수선언
 public partial class StageUIController : MonoBehaviour
@@ -9,7 +10,7 @@ public partial class StageUIController : MonoBehaviour
 
     //UI오브젝트
     [SerializeField]
-    private GameObject checkParty;
+    private GameObject chanllengeMeassge;
     [SerializeField]
     private GameObject scout;
     [SerializeField]
@@ -26,8 +27,8 @@ public partial class StageUIController : MonoBehaviour
 public partial class StageUIController : MonoBehaviour
 {
 
-    // 싱글톤
-    #region 
+    
+    #region//싱글톤 
     public static StageUIController instance
     {
         get
@@ -42,44 +43,23 @@ public partial class StageUIController : MonoBehaviour
 
     }
     #endregion
+    #region//메뉴
 
-    public void PartyCheck()
+    public void ChallengeCheck()
     {
-        checkParty.SetActive(true);
-    }
-    public void SelcetHero()//
-    {
-        canChange = true;
-        scout.SetActive(false);
-        changeHero.SetActive(true); 
-
-
-
-
-    }
-    public void ChangeHero()
-    {
-
-        if(canChange)
-        {
-            changeHero.SetActive(false) ;
-            canChange = false;
-        }
-    }
-    public void Option()
-    {
-
-    }
-    public void Cancle()
-    {
-        canChange = false;
-        scout.SetActive(false);
+        
+      
+        
+     
+        //PlayerData.SelectedStageId = gameObject.GetComponent<StageData>().Stagenumber;
+        chanllengeMeassge.SetActive(true);
+        
     }
     public void CheckYesNo(bool value)
     {
         if (value)
         {
-            //게임시작
+            StartCoroutine(SceneController.instance.FadeOut(1, "InGame"));
         }
         else
         {
@@ -87,6 +67,47 @@ public partial class StageUIController : MonoBehaviour
         }
 
     }
+    public void Cancle()
+    {
+        canChange = false;
+        changeHero.SetActive(false);
+        scout.SetActive(true);
+    }
+    public  void  Cancle(GameObject ui)
+    {
+        ui.SetActive(false);
+    }
+    public void Option()
+    {
+
+    }
+    #endregion
+    #region//파티관련
+    public void scoutHero()
+    {
+        scout.SetActive(true);
+
+    }
+    public void SelcetHero()//
+    {
+        
+        scout.SetActive(false);
+        changeHero.SetActive(true);
+        canChange = true;
+
+    }
+    public void ChangeHero()
+    {
+        if(canChange)
+        {
+            changeHero.SetActive(false) ;
+            canChange = false;
+        }
+    }
+
+    #endregion
+
+   
 
 
 }
