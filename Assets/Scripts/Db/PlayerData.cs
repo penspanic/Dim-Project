@@ -41,6 +41,15 @@ public class PlayerData : MonoBehaviour
        // Warrior, Priest, Wizard
     }
 
+    public void ResetData()
+    {
+        lastClearedStageId = "S1";
+        selectedStageId = string.Empty;
+        OwnedCharacters.Clear();
+        SelectedCharacters.Clear();
+        PlayerPrefs.DeleteAll();
+    }
+
     void InitData()
     {
         //OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Warrior, CharacterType.Priest, CharacterType.Wizard });
