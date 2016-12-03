@@ -47,6 +47,7 @@ public class Character : MonoBehaviour, ITouchable
     StageController stageCtrler;
     CharacterQueueController queueCtrler;
     HpBar hpBar;
+    Animator animator;
 
     protected virtual void Awake()
     {
@@ -58,6 +59,7 @@ public class Character : MonoBehaviour, ITouchable
         stageCtrler = GameObject.FindObjectOfType<StageController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
+        animator = GetComponent<Animator>();
     }
 
     public void StartMove()
@@ -80,7 +82,12 @@ public class Character : MonoBehaviour, ITouchable
     // 몬스터와 닿았을 때 하는 행동( OnTriggerEnter2D )
     protected virtual void DoAction()
     {
+        animator.Play("skill", 0);
+    }
 
+    public void OnSkillMotionEnd()
+    {
+        ResetPosition();
     }
 
     // 기본적인 처리( 이동 등등 )
@@ -174,7 +181,6 @@ public class Character : MonoBehaviour, ITouchable
         {
             other.GetComponent<Monster>().OnDamaged(damage);
             DoAction();
-            ResetPosition();
         }
     }
 }
