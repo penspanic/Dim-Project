@@ -5,10 +5,7 @@ public class Logo : MonoBehaviour
 {
 
     // Use this for initialization
-    void Awake()
-    {
-        SoundManager.instance.LoadSound();
-    }
+    
     void Start()
     {
         SoundManager.instance.PlayBgmSound(SoundManager.BGM.Logo);
