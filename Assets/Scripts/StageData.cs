@@ -8,7 +8,7 @@ public class StageData : MonoBehaviour
     [SerializeField]
     private bool stagelock;
 
-    public bool Stagelock
+    public bool StageLocked
     {
         get
         {
@@ -19,40 +19,38 @@ public class StageData : MonoBehaviour
 
     void Start()
     {
-      
-        int[] temp = new int[2];
-        temp[0] = int.Parse(stageLevel.Substring(1, stageLevel.Length - 1));
-        temp[1] = int.Parse(PlayerData.instance.LastClearedStageId.Substring(1, stageLevel.Length - 1));
-        if (temp[0] < temp[1])
-        {
-            stagelock = false;
-
-        }
-        else
-        {
-            stagelock = true;
-        }
-       // StageLock();
+        LockStage();
     }
- private void StageLock()
+
+    private void LockStage()
     {
-        int[] temp = new int[2];
-        temp[0] = int.Parse(stageLevel.Substring(1, stageLevel.Length - 1));
-        temp[1] = int.Parse(PlayerData.instance.LastClearedStageId.Substring(1, stageLevel.Length - 1));
-        if (temp[0] < temp[1])
+        int targetStageNum = int.Parse(stageLevel.Substring(1, stageLevel.Length - 1));
+
+        if(targetStageNum == 1)
         {
             stagelock = false;
+            return;
+        }
 
+        if(PlayerData.instance.GetLastClearedStageNum() == 0)
+        {
+            stagelock = true;
+            return;
+        }
+
+        int lastClearedStageNum = PlayerData.instance.GetLastClearedStageNum();
+        if (targetStageNum < lastClearedStageNum)
+        {
+            stagelock = false;
         }
         else
         {
             stagelock = true;
         }
-
     }
+
     public void SetStagenumber()
     {
-        PlayerData.instance.SelectedStageId = stageLevel;
-        Debug.Log(PlayerData.instance.SelectedStageId);
+        PlayerData.instance.SetSelectedStage(stageLevel);
     }
 }

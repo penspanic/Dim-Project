@@ -22,6 +22,8 @@ public class SceneController : MonoBehaviour
     void Awake()
     {
         sprRenderer = GetComponent<SpriteRenderer>();
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public IEnumerator FadeOut(float duration, string nextScene = null)

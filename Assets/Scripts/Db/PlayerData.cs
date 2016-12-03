@@ -21,8 +21,8 @@ public class PlayerData : MonoBehaviour
 
     private static PlayerData _instance;
 
-    public string LastClearedStageId;
-    public string SelectedStageId;
+    private string lastClearedStageId = "S1";
+    private string selectedStageId;
     public List<CharacterType> OwnedCharacters = new List<CharacterType>();
     public List<CharacterType> SelectedCharacters = new List<CharacterType>();
 
@@ -35,25 +35,24 @@ public class PlayerData : MonoBehaviour
             InitData();
         }
 
-        SelectedStageId = "S1";
+        selectedStageId = "S1";
        // Warrior, Priest, Wizard
     }
 
     void InitData()
     {
         //OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Warrior, CharacterType.Priest, CharacterType.Wizard });
-        OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Assassin, CharacterType.Priest, CharacterType.Shielder, CharacterType.Wizard });
+        OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Lancer, CharacterType.Bard, CharacterType.Paladin, CharacterType.Warrior, CharacterType.Priest });
         SelectedCharacters.AddRange(OwnedCharacters);
-        SelectedStageId = "S1";
-        LastClearedStageId = null;
+        selectedStageId = "S1";
     }
 
     bool LoadData()
     {
-        if (PlayerPrefs.HasKey("LastClearedStageId") == true)
+        if (PlayerPrefs.HasKey("lastClearedStageId") == true)
         {
-            LastClearedStageId = PlayerPrefs.GetString("LastClearedStageId");
-            if(LastClearedStageId == string.Empty || LastClearedStageId.Length <= 1)
+            lastClearedStageId = PlayerPrefs.GetString("lastClearedStageId");
+            if(lastClearedStageId == string.Empty || lastClearedStageId.Length <= 1)
             {
                 return false;
             }
@@ -63,10 +62,10 @@ public class PlayerData : MonoBehaviour
             return false;
         }
 
-        if(PlayerPrefs.HasKey("SelectedStageId") == true)
+        if(PlayerPrefs.HasKey("selectedStageId") == true)
         {
-            SelectedStageId = PlayerPrefs.GetString("SelectedStageId");
-            if(SelectedStageId == string.Empty || SelectedStageId.Length <= 1)
+            selectedStageId = PlayerPrefs.GetString("selectedStageId");
+            if(selectedStageId == string.Empty || selectedStageId.Length <= 1)
             {
                 return false;
             }
@@ -135,8 +134,8 @@ public class PlayerData : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        PlayerPrefs.SetString("LastClearedStageId", LastClearedStageId);
-        PlayerPrefs.SetString("SelectedStageId", SelectedStageId);
+        PlayerPrefs.SetString("lastClearedStageId", lastClearedStageId);
+        PlayerPrefs.SetString("selectedStageId", selectedStageId);
 
         string ownedCharactersString = string.Empty;
         foreach(CharacterType eachCharacter in OwnedCharacters)
@@ -153,5 +152,29 @@ public class PlayerData : MonoBehaviour
         }
 
         PlayerPrefs.SetString("selectedCharactersString", selectedCharactersString);
+    }
+
+    public int GetLastClearedStageNum()
+    {
+        if(lastClearedStageId == null)
+        {
+            return 0;
+        }
+        return int.Parse(lastClearedStageId.Substring(1, lastClearedStageId.Length - 1));
+    }
+
+    public void SetSelectedStage(string stageId)
+    {
+        selectedStageId = stageId;
+    }
+
+    public string GetSelectedStageId()
+    {
+        return selectedStageId;
+    }
+
+    public int GetSelectedStageNum()
+    {
+        return int.Parse(selectedStageId.Substring(1, selectedStageId.Length - 1));
     }
 }

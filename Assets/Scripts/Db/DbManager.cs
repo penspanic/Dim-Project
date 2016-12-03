@@ -22,10 +22,8 @@ public class DbManager : MonoBehaviour
     */
 
     int[] stageClearLimitTime = new int[] { 60, 60, 60, 60, 60, 60, 60, 60, 60 };
-    public int GetStageClearLimitTime(string stageId) // 스테이지 제한 시간
+    public int GetStageClearLimitTime(int stageNum) // 스테이지 제한 시간
     {
-        int stageNum = int.Parse(stageId.Substring(1, stageId.Length - 1));
-
         return stageClearLimitTime[stageNum - 1];
     }
 }

@@ -11,7 +11,7 @@ public class UiController : MonoBehaviour
     {
         stageCtrler = GameObject.FindObjectOfType<StageController>();
         timeText = GameObject.Find("Time").GetComponent<Text>();
-        stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.instance.SelectedStageId);
+        stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.instance.GetSelectedStageNum());
 
         timeText.text = stageClearLimitTime.ToString();
 
