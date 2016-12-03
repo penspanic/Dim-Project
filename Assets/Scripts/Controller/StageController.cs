@@ -22,6 +22,7 @@ public class StageController : MonoBehaviour
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
         stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.SelectedStageId);
 
+
         StartCoroutine(ObjectsCreateProcess());
     }
 

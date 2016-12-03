@@ -20,6 +20,8 @@ public class UiController : MonoBehaviour
 
     IEnumerator StageStartProcess()
     {
+        yield return StartCoroutine(SceneController.instance.FadeIn(2f));
+
         yield return new WaitForSeconds(1f);
 
         stageCtrler.StageStart();
