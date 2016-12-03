@@ -86,11 +86,12 @@ public class Character : MonoBehaviour, ITouchable
     // 기본적인 처리( 이동 등등 )
     protected virtual void Update()
     {
-        hpBar.SetValue((float)hp / (float)startHp);
         if(isDead == true || stageCtrler.IsStageEnd == true)
         {
             return;
         }
+
+        hpBar.SetValue((float)hp / (float)startHp);
 
         if( isMoving == true )
         {
@@ -133,6 +134,11 @@ public class Character : MonoBehaviour, ITouchable
 
     public void OnDamaged(int damage)
     {
+        if(isDead == true)
+        {
+            return;
+        }
+
         hp -= damage;
 
         if(hp <= 0)
@@ -144,7 +150,9 @@ public class Character : MonoBehaviour, ITouchable
     private void OnDeath()
     {
         isDead = true;
-        
+
+        Destroy(hpBar.gameObject);
+
         if(stageCtrler.IsStageEnd == false)
         {
             stageCtrler.OnCharacterDeath(this);
