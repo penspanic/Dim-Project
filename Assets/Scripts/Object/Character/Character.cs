@@ -49,8 +49,9 @@ public class Character : MonoBehaviour, ITouchable
     private int damage = 0;
     private int startHp = 0;
 
-    StageController stageCtrler;
-    CharacterQueueController queueCtrler;
+    protected StageController stageCtrler;
+    protected CharacterQueueController queueCtrler;
+    protected EffectController effectCtrler;
     HpBar hpBar;
     Animator animator;
 
@@ -63,6 +64,7 @@ public class Character : MonoBehaviour, ITouchable
 
         stageCtrler = GameObject.FindObjectOfType<StageController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
+        effectCtrler = GameObject.FindObjectOfType<EffectController>();
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
         animator = GetComponent<Animator>();
     }
