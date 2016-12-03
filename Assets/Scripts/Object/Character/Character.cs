@@ -189,6 +189,7 @@ public class Character : MonoBehaviour, ITouchable
         if(other.CompareTag("Monster") == true)
         {
             other.GetComponent<Monster>().OnDamaged(damage);
+            effectCtrler.ShowEffect(EffectType.Collision, 1f, transform.position + new Vector3(0f,0.3f,0f));
             DoAction();
         }
     }

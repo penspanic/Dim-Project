@@ -17,6 +17,8 @@ public class Paladin : Character
     {
         base.DoAction();
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.Paladin_HitAndHeal);
+        effectCtrler.ShowEffect(EffectType.PaladinSkill1, 1f, transform.position);
+        effectCtrler.ShowEffect(EffectType.PaladinSkill2, 2f, transform.position);
         foreach (Character eachCharacter in characters)
         {
             eachCharacter.Heal(actionValue);

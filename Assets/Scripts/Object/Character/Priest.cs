@@ -21,6 +21,11 @@ public class Priest : Character
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.PriestHeal);
         foreach(Character eachCharacter in characters)
         {
+            if(eachCharacter.isDead == true)
+            {
+                continue;
+            }
+            effectCtrler.ShowEffect(EffectType.PriestSkill, 1f, eachCharacter.transform.position);
             eachCharacter.Heal(actionValue);
         }
     }

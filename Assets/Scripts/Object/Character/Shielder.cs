@@ -16,6 +16,7 @@ public class Shielder : Character
     {
         base.DoAction();
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.Shielder_Stun);
+        effectCtrler.ShowEffect(EffectType.ShielderSkill, 1f, transform.position);
         GameObject.FindObjectOfType<Monster>().Stun(actionValue);
     }
 

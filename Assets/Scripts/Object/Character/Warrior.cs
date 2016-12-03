@@ -14,7 +14,7 @@ public class Warrior : Character
     {
         base.DoAction();
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.Warrior_Hit);
-
+        effectCtrler.ShowEffect(EffectType.WarriorSkill, 1f, transform.position);
         GameObject.FindObjectOfType<Monster>().OnDamaged(actionValue);
     }
 

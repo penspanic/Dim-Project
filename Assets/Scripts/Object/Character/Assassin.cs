@@ -13,6 +13,7 @@ public class Assassin : Character
     {
         base.DoAction();
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.Assain_Hit);
+        effectCtrler.ShowEffect(EffectType.AssassinSkill, 1f, transform.position);
     }
 
     public override void SetBuff(float duration, float ratio)

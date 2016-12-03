@@ -13,6 +13,7 @@ public class Lancer : Character
     {
         base.DoAction();
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.Lancer_Hit);
+        effectCtrler.ShowEffect(EffectType.LancerSkill, 1f, transform.position);
         GameObject.FindObjectOfType<Monster>().BreakShield();
     }
 

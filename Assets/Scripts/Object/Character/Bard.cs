@@ -19,6 +19,7 @@ public class Bard : Character
     {
         base.DoAction();
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.Bard_Burf);
+        effectCtrler.ShowEffect(EffectType.BardSkill, 1f, transform.position);
         foreach(var eachChracter in characters)
         {
             eachChracter.SetBuff(actionValue, AttackBuffRatio);
