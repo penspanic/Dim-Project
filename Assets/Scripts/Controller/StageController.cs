@@ -7,7 +7,7 @@ public class StageController : MonoBehaviour
 
     public bool IsStageEnd
     {
-        get;private set;
+        get; private set;
     }
 
     UiController uiCtrler;
@@ -30,7 +30,7 @@ public class StageController : MonoBehaviour
     IEnumerator ObjectsCreateProcess()
     {
         int i = 0;
-        foreach(var eachType in PlayerData.instance.SelectedCharacters)
+        foreach (var eachType in PlayerData.instance.SelectedCharacters)
         {
             GameObject character = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Character/" + eachType.ToString()));
             characters.Add(character.GetComponent<Character>());
@@ -50,7 +50,7 @@ public class StageController : MonoBehaviour
     {
         SoundManager.instance.PlayBgmSound(SoundManager.BGM.InGame_Default);
 
-        foreach(var eachCharacter in characters)
+        foreach (var eachCharacter in characters)
         {
             eachCharacter.StartMove();
         }
@@ -63,7 +63,7 @@ public class StageController : MonoBehaviour
     {
         uiCtrler.ShowStageEndUi(isCleared);
 
-        foreach(var eachCharacter in characters)
+        foreach (var eachCharacter in characters)
         {
             eachCharacter.StageEnd(isCleared);
         }
@@ -76,22 +76,44 @@ public class StageController : MonoBehaviour
     public void OnCharacterDeath(Character deadCharacter)
     {
         bool isAllDead = true;
-        foreach(Character eachCharacter in characters)
+        foreach (Character eachCharacter in characters)
         {
-            if(eachCharacter.isDead == false)
+            if (eachCharacter.isDead == false)
             {
                 isAllDead = false;
             }
         }
 
-        if(isAllDead == true)
+        if (isAllDead == true)
         {
+            SoundManager.instance.PlayBgmSound(SoundManager.BGM.Fail);
             StageEnd(false);
+            
         }
     }
 
     public void OnMonsterDeath(Monster deadMonster)
     {
         StageEnd(true);
+    }
+   private  void CheckCharacterCount()
+    {
+        int deadCount=0;
+        foreach (var eachCharacter in characters)
+        {
+
+            if (eachCharacter.isDead)
+            {
+                deadCount++;
+                if(deadCount==2&&SoundManager.instance.BgmAudioSource.clip.name!= "(BGM)DeongeonCatHeroes_InGame(Player)")
+                {
+                    SoundManager.instance.PlayBgmSound(SoundManager.BGM.InGame_Player);
+                }
+            }
+        }
+    }
+   void Update()
+    {
+        CheckCharacterCount();
     }
 }

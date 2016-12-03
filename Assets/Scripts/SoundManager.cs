@@ -72,6 +72,13 @@ public class SoundManager : MonoBehaviour
     {
         LoadSound();
     }
+    public AudioSource BgmAudioSource
+    {
+        get
+        {
+            return BgmSource;
+        }
+    }
     public void LoadSound()//사운드 추가하는곳
     {
 
@@ -94,7 +101,6 @@ public class SoundManager : MonoBehaviour
         #endregion
         #region Effect
         effect.Add(Effect.Assain_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Assassin_Hit") as AudioClip);
-
         effect.Add(Effect.Bard_Burf, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Bard_Buff") as AudioClip);
         effect.Add(Effect.Lancer_Hit, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Lancer_Hit") as AudioClip);
         effect.Add(Effect.Paladin_HitAndHeal, Resources.Load("Sound/Effect/(SFX)DeongeonCatHeroes_Paladin_Hit&Heal") as AudioClip);
@@ -118,9 +124,17 @@ public class SoundManager : MonoBehaviour
         }
 
     }
+   
     public void PlayBgmSound(BGM Sound)
     {
-        if (bgm[Sound] != null)
+         if(Sound==BGM.Clear|| Sound==BGM.Fail)
+        {
+            BgmSource.loop =!BgmSource.loop;
+            BgmSource.clip = bgm[Sound];
+            BgmSource.PlayOneShot(bgm[Sound]);
+            
+        }
+      else  if (bgm[Sound] != null)
         {
             BgmSource.clip = bgm[Sound];
             BgmSource.Play();

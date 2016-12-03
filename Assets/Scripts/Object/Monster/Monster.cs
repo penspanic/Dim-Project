@@ -22,6 +22,7 @@ public class Monster : MonoBehaviour
 
     private int startHp = 0;
     private int shieldHp;
+
     private float berserkModeReduceRatio = 0.33f;
 
     public bool isNextAttackIsDeadlyAttack = false; // 다음 평타가 치명타인가?
@@ -40,6 +41,7 @@ public class Monster : MonoBehaviour
         defaultAttackCollider.enabled = false;
 
         startHp = hp;
+
     }
 
     public void StartDefense()
@@ -58,16 +60,16 @@ public class Monster : MonoBehaviour
 
     public void OnDamaged(int damage)
     {
-        if(isDead == true)
+        if (isDead == true)
         {
             return;
         }
 
         // 쉴드가 있을 경우 쉴드의 데미지만 달게 한다. 예) 쉴드 체력 10, damage  30 -> 쉴드 파괴, hp 손실 X
-        if( shieldHp > 0 )
+        if (shieldHp > 0)
         {
             shieldHp -= damage;
-            if(shieldHp < 0)
+            if (shieldHp < 0)
             {
                 hasShield = false;
                 shieldHp = 0;
@@ -80,15 +82,27 @@ public class Monster : MonoBehaviour
         if (hp <= 0)
         {
             OnDeath();
+            SoundManager.instance.PlayBgmSound(SoundManager.BGM.Clear);
         }
+        else if ((float)hp / startHp <= 0.9f&&SoundManager.instance.BgmAudioSource.name!= "(BGM)DeongeonCatHeroes_InGame(Boss)")
+        {
+
+            SoundManager.instance.PlayBgmSound(SoundManager.BGM.InGame_Boss);
+         
+        }
+
     }
+
+
+
+
 
     private void OnDeath()
     {
         Debug.Log("Monster dead");
         isDead = true;
         animator.Play("Die", 0);
-        if(stageCtrler.IsStageEnd == false)
+        if (stageCtrler.IsStageEnd == false)
         {
             stageCtrler.OnMonsterDeath(this);
         }
@@ -120,7 +134,7 @@ public class Monster : MonoBehaviour
 
     IEnumerator DefaultAttackProcess()
     {
-        while(isDead == false && stageCtrler.IsStageEnd == false)
+        while (isDead == false && stageCtrler.IsStageEnd == false)
         {
             float attackCoolTime = Random.Range(defaultAttackCoolTimeRange.x, defaultAttackCoolTimeRange.y);
 
@@ -131,7 +145,7 @@ public class Monster : MonoBehaviour
 
             yield return new WaitForSeconds(attackCoolTime);
 
-            if(isDead == false) // 타이밍상 WaitForSeconds한 후 죽어있을 수도 있다.
+            if (isDead == false) // 타이밍상 WaitForSeconds한 후 죽어있을 수도 있다.
             {
                 defaultAttackCollider.enabled = true;
                 animator.Play("Attack", 0);
@@ -154,7 +168,7 @@ public class Monster : MonoBehaviour
 
             yield return new WaitForSeconds(coolTime);
 
-            if( isDead == true)
+            if (isDead == true)
             {
                 break;
             }
@@ -167,22 +181,22 @@ public class Monster : MonoBehaviour
     // 광역기
     IEnumerator AoeSkillProcess()
     {
-        while(isDead == false)
+        while (isDead == false)
         {
             float coolTime = Random.Range(AoeSkillCoolTimeRange.x, AoeSkillCoolTimeRange.y);
 
             yield return new WaitForSeconds(coolTime);
 
-            if(isDead == true)
+            if (isDead == true)
             {
                 break;
             }
 
             Character[] characters = GameObject.FindObjectsOfType<Character>();
 
-            foreach(Character eachCharacter in  characters)
+            foreach (Character eachCharacter in characters)
             {
-                if(eachCharacter.isDead == true)
+                if (eachCharacter.isDead == true)
                 {
                     continue;
                 }
@@ -195,13 +209,13 @@ public class Monster : MonoBehaviour
     // 평타 강화, 쿨타임 지나고 다음 공격이 치명타
     IEnumerator DeadlySkillProcess()
     {
-        while(isDead == false)
+        while (isDead == false)
         {
             float coolTime = Random.Range(DeadlySkillCoolTimeRange.x, DeadlySkillCoolTimeRange.y);
 
             yield return new WaitForSeconds(coolTime);
 
-            if(isDead == true)
+            if (isDead == true)
             {
                 break;
             }
@@ -213,13 +227,13 @@ public class Monster : MonoBehaviour
     // 광전사, 평타 속도가 2배 빨라지게?
     IEnumerator BerserkSkillProces()
     {
-        while(isDead == false)
+        while (isDead == false)
         {
             float coolTime = Random.Range(BerserkSkillCoolTimeRange.x, BerserkSkillCoolTimeRange.y);
 
             yield return new WaitForSeconds(coolTime);
 
-            if(isDead == true)
+            if (isDead == true)
             {
                 break;
             }
@@ -235,7 +249,7 @@ public class Monster : MonoBehaviour
 
     void Update()
     {
-        if(isDead == true)
+        if (isDead == true)
         {
             return;
         }
