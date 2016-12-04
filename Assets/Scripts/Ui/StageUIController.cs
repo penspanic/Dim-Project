@@ -99,6 +99,8 @@ public partial class StageUIController : MonoBehaviour
         canChange = false;
         changeHero.SetActive(false);
         scout.SetActive(true);
+
+        Destroy(selectedScoutHero);
     }
 
     public void Cancel(GameObject ui) // 캐릭터 고르기 전에 취소
@@ -170,10 +172,28 @@ public partial class StageUIController : MonoBehaviour
     }
 
     int selectedHeroIndex = 0;
+
+    GameObject selectedScoutHero;
     public void SelectHero(int index)
     {
+        foreach(var character in scoutableCharacters)
+        {
+            character.SetActive(false);
+        }
+
+        if(PlayerData.instance.SelectedCharacters.Count < 5)
+        {
+            PlayerData.instance.SelectedCharacters.Add(scoutableTypes[index]);
+            SetPortraits();
+            scout.SetActive(false);
+            return;
+        }
+
+        selectedScoutHero = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Ui/Scout Character/" + scoutableTypes[index]));
+        selectedScoutHero.transform.position = Vector3.zero;
+
         selectedHeroIndex = index;
-        scout.SetActive(false);
+
         changeHero.SetActive(true);
         canChange = true;
     }
@@ -190,7 +210,17 @@ public partial class StageUIController : MonoBehaviour
                 return;
             }
 
-            PlayerData.instance.SelectedCharacters[index] = scoutableTypes[selectedHeroIndex];
+            if(PlayerData.instance.SelectedCharacters.Count < 5)
+            {
+                PlayerData.instance.SelectedCharacters.Add(scoutableTypes[selectedHeroIndex]);
+            }
+            else
+            {
+                PlayerData.instance.SelectedCharacters[index] = scoutableTypes[selectedHeroIndex];
+            }
+
+            Destroy(selectedScoutHero);
+
             SetPortraits();
         }
     }

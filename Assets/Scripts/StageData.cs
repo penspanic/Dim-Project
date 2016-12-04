@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class StageData : MonoBehaviour
@@ -16,10 +17,13 @@ public class StageData : MonoBehaviour
         }
     }
 
-
-    void Start()
+    void Awake()
     {
         LockStage();
+        if(stagelock == false)
+        {
+            transform.FindChild("Background").GetComponent<Image>().sprite = Resources.Load<Sprite>("Ui/Dungeon_open");
+        }
     }
 
     private void LockStage()
