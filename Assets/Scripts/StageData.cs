@@ -43,7 +43,7 @@ public class StageData : MonoBehaviour
         }
 
         int lastClearedStageNum = PlayerData.instance.GetLastClearedStageNum();
-        if (targetStageNum < lastClearedStageNum)
+        if (targetStageNum <= lastClearedStageNum)
         {
             stagelock = false;
         }
