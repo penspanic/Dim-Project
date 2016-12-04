@@ -163,10 +163,9 @@ public partial class StageUIController : MonoBehaviour
             scout.transform.FindChild("Hero_" + (i + 1).ToString());
 
             GameObject hero = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Ui/Scout Character/" + types[i].ToString()));
-
             scoutableCharacters.Add(hero);
         }
-
+        
         scoutableCharacters[0].transform.Translate(new Vector3(-3.5f, 0f, 0f));
         scoutableCharacters[2].transform.Translate(new Vector3(3.5f, 0f, 0f));
     }
@@ -185,13 +184,13 @@ public partial class StageUIController : MonoBehaviour
         {
             PlayerData.instance.SelectedCharacters.Add(scoutableTypes[index]);
             SetPortraits();
-            scout.SetActive(false);
+           
             return;
         }
 
         selectedScoutHero = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Ui/Scout Character/" + scoutableTypes[index]));
         selectedScoutHero.transform.position = Vector3.zero;
-
+        scout.SetActive(false);
         selectedHeroIndex = index;
 
         changeHero.SetActive(true);
