@@ -94,11 +94,16 @@ public partial class StageUIController : MonoBehaviour
         ScoutHero();
     }
 
-    public void Cancel() // 캐릭터 3개 뜨고 취소
+    public void Cancel() // 캐릭터 고르고 취소
     {
         canChange = false;
         changeHero.SetActive(false);
         scout.SetActive(true);
+
+        foreach(var character in scoutableCharacters)
+        {
+            character.SetActive(true);
+        }
 
         Destroy(selectedScoutHero);
     }
@@ -106,6 +111,11 @@ public partial class StageUIController : MonoBehaviour
     public void Cancel(GameObject ui) // 캐릭터 고르기 전에 취소
     {
         ui.SetActive(false);
+
+        foreach (var character in scoutableCharacters)
+        {
+            character.SetActive(false);
+        }
     }
 
     public void Option()
@@ -186,7 +196,8 @@ public partial class StageUIController : MonoBehaviour
         {
             PlayerData.instance.SelectedCharacters.Add(scoutableTypes[index]);
             SetPortraits();
-           
+
+            scout.SetActive(false);
             return;
         }
 
@@ -231,11 +242,12 @@ public partial class StageUIController : MonoBehaviour
     public void Reset()
     {
         PlayerData.instance.ResetData();
+        StartCoroutine(SceneController.instance.FadeOut(1f, "Menu"));
     }
 
     public void Credit()
     {
-        SceneController.instance.FadeOut(1f, "Credit");
+        StartCoroutine(SceneController.instance.FadeOut(1f, "Credit"));
     }
    
     #endregion
