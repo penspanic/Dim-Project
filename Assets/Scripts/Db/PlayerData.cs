@@ -21,8 +21,8 @@ public class PlayerData : MonoBehaviour
 
     private static PlayerData _instance;
 
-    private string lastClearedStageId = "S1";
-    private string selectedStageId;
+    private int lastClearedStageNum;
+    private int selectedStageNum = 1;
     public List<CharacterType> SelectedCharacters = new List<CharacterType>();
 
     void Awake()
@@ -34,13 +34,13 @@ public class PlayerData : MonoBehaviour
             InitData();
         }
 
-        selectedStageId = "S1";
+        selectedStageNum = 1;
     }
 
     public void ResetData()
     {
-        lastClearedStageId = "S1";
-        selectedStageId = string.Empty;
+        lastClearedStageNum = 0;
+        selectedStageNum = 1;
         SelectedCharacters.Clear();
         PlayerPrefs.DeleteAll();
     }
@@ -48,18 +48,14 @@ public class PlayerData : MonoBehaviour
     void InitData()
     {
         SelectedCharacters.AddRange(new CharacterType[] { CharacterType.Warrior, CharacterType.Priest, CharacterType.Wizard });
-        selectedStageId = "S1";
+        selectedStageNum = 1;
     }
 
     bool LoadData()
     {
-        if (PlayerPrefs.HasKey("lastClearedStageId") == true)
+        if (PlayerPrefs.HasKey("lastClearedStageNum") == true)
         {
-            lastClearedStageId = PlayerPrefs.GetString("lastClearedStageId");
-            if(lastClearedStageId == string.Empty || lastClearedStageId.Length <= 1)
-            {
-                return false;
-            }
+            lastClearedStageNum = PlayerPrefs.GetInt("lastClearedStageNum");
         }
         else
         {
@@ -98,7 +94,7 @@ public class PlayerData : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        PlayerPrefs.SetString("lastClearedStageId", lastClearedStageId);
+        PlayerPrefs.SetInt("lastClearedStageNum", lastClearedStageNum);
 
         string selectedCharactersString = string.Empty;
         foreach(CharacterType eachCharacter in SelectedCharacters)
@@ -109,32 +105,23 @@ public class PlayerData : MonoBehaviour
         PlayerPrefs.SetString("selectedCharactersString", selectedCharactersString);
     }
 
-    public void SetLastClearedStage(string stageId)
+    public void SetLastClearedStage(int stageNum)
     {
-        lastClearedStageId = stageId;
+        lastClearedStageNum = stageNum;
     }
 
     public int GetLastClearedStageNum()
     {
-        if(lastClearedStageId == null)
-        {
-            return 0;
-        }
-        return int.Parse(lastClearedStageId.Substring(1, lastClearedStageId.Length - 1));
+        return lastClearedStageNum;
     }
 
-    public void SetSelectedStage(string stageId)
+    public void SetSelectedStage(int stageNum)
     {
-        selectedStageId = stageId;
-    }
-
-    public string GetSelectedStageId()
-    {
-        return selectedStageId;
+        selectedStageNum = stageNum;
     }
 
     public int GetSelectedStageNum()
     {
-        return int.Parse(selectedStageId.Substring(1, selectedStageId.Length - 1));
+        return selectedStageNum;
     }
 }

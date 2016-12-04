@@ -55,6 +55,6 @@ public class StageData : MonoBehaviour
 
     public void SetStagenumber()
     {
-        PlayerData.instance.SetSelectedStage(stageLevel);
+        PlayerData.instance.SetSelectedStage(int.Parse(stageLevel.Substring(1, stageLevel.Length - 1)));
     }
 }

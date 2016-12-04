@@ -19,7 +19,7 @@ public class StageController : MonoBehaviour
     {
         uiCtrler = GameObject.FindObjectOfType<InGameUiController>();
         queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
-        stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.instance.GetLastClearedStageNum());
+        stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.instance.GetSelectedStageNum());
 
 
         StartCoroutine(ObjectsCreateProcess());
@@ -38,7 +38,7 @@ public class StageController : MonoBehaviour
             i++;
         }
 
-        monster = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Monster/Monster_" + PlayerData.instance.GetSelectedStageId())).GetComponent<Monster>();
+        monster = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Monster/Monster_S" + PlayerData.instance.GetSelectedStageNum())).GetComponent<Monster>();
         monster.transform.position = new Vector3(4.75f, -2f, 0f);
 
         yield return null;
@@ -64,7 +64,7 @@ public class StageController : MonoBehaviour
         {
             if (PlayerData.instance.GetSelectedStageNum() > PlayerData.instance.GetLastClearedStageNum() )
             {
-                PlayerData.instance.SetLastClearedStage("S" + PlayerData.instance.GetSelectedStageNum().ToString());
+                PlayerData.instance.SetLastClearedStage(PlayerData.instance.GetSelectedStageNum());
             }
         }
 
