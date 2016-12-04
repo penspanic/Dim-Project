@@ -23,13 +23,10 @@ public class PlayerData : MonoBehaviour
 
     private string lastClearedStageId = "S1";
     private string selectedStageId;
-    public List<CharacterType> OwnedCharacters = new List<CharacterType>();
     public List<CharacterType> SelectedCharacters = new List<CharacterType>();
 
     void Awake()
     {
-        PlayerPrefs.DeleteAll();
-
         DontDestroyOnLoad(gameObject);
 
         if( LoadData() == false)
@@ -38,23 +35,19 @@ public class PlayerData : MonoBehaviour
         }
 
         selectedStageId = "S1";
-       // Warrior, Priest, Wizard
     }
 
     public void ResetData()
     {
         lastClearedStageId = "S1";
         selectedStageId = string.Empty;
-        OwnedCharacters.Clear();
         SelectedCharacters.Clear();
         PlayerPrefs.DeleteAll();
     }
 
     void InitData()
     {
-        OwnedCharacters.AddRange(new CharacterType[] { CharacterType.Warrior, CharacterType.Priest, CharacterType.Wizard });
-        
-        SelectedCharacters.AddRange(OwnedCharacters);
+        SelectedCharacters.AddRange(new CharacterType[] { CharacterType.Warrior, CharacterType.Priest, CharacterType.Wizard });
         selectedStageId = "S1";
     }
 
@@ -64,46 +57,6 @@ public class PlayerData : MonoBehaviour
         {
             lastClearedStageId = PlayerPrefs.GetString("lastClearedStageId");
             if(lastClearedStageId == string.Empty || lastClearedStageId.Length <= 1)
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-
-        if(PlayerPrefs.HasKey("selectedStageId") == true)
-        {
-            selectedStageId = PlayerPrefs.GetString("selectedStageId");
-            if(selectedStageId == string.Empty || selectedStageId.Length <= 1)
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-
-        if(PlayerPrefs.HasKey("ownedCharacterString") == true)
-        {
-            string ownedCharactersString = PlayerPrefs.GetString("ownedCharacterString");
-
-            string[] characters = ownedCharactersString.Split(' ');
-
-            OwnedCharacters.Clear();
-
-            foreach(var character in  characters)
-            {
-                if(character.Length <= 2)
-                {
-                    continue;
-                }
-
-                OwnedCharacters.Add((CharacterType)Enum.Parse(Type.GetType("CharacterType"), character));
-            }
-            if(OwnedCharacters.Count == 0)
             {
                 return false;
             }
@@ -146,15 +99,6 @@ public class PlayerData : MonoBehaviour
     void OnApplicationQuit()
     {
         PlayerPrefs.SetString("lastClearedStageId", lastClearedStageId);
-        PlayerPrefs.SetString("selectedStageId", selectedStageId);
-
-        string ownedCharactersString = string.Empty;
-        foreach(CharacterType eachCharacter in OwnedCharacters)
-        {
-            ownedCharactersString += eachCharacter.ToString() + " ";
-        }
-
-        PlayerPrefs.SetString("ownedCharacterString", ownedCharactersString);
 
         string selectedCharactersString = string.Empty;
         foreach(CharacterType eachCharacter in SelectedCharacters)
@@ -163,6 +107,11 @@ public class PlayerData : MonoBehaviour
         }
 
         PlayerPrefs.SetString("selectedCharactersString", selectedCharactersString);
+    }
+
+    public void SetLastClearedStage(string stageId)
+    {
+        lastClearedStageId = stageId;
     }
 
     public int GetLastClearedStageNum()

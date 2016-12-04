@@ -58,8 +58,16 @@ public class StageController : MonoBehaviour
         monster.StartDefense();
     }
 
-    private void StageEnd(bool isCleared)
+    public void StageEnd(bool isCleared)
     {
+        if(isCleared == true)
+        {
+            if (PlayerData.instance.GetSelectedStageNum() > PlayerData.instance.GetLastClearedStageNum() )
+            {
+                PlayerData.instance.SetLastClearedStage("S" + PlayerData.instance.GetSelectedStageNum().ToString());
+            }
+        }
+
         uiCtrler.ShowStageEndUi(isCleared);
 
         foreach (var eachCharacter in characters)

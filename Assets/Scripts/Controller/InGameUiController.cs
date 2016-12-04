@@ -34,10 +34,16 @@ public class InGameUiController : MonoBehaviour
 
     IEnumerator StageClearTimeProcess()
     {
-        while (stageClearLimitTime > 1)
+        while (true)
         {
             yield return new WaitForSeconds(1f);
             stageClearLimitTime -= 1;
+
+            if(stageClearLimitTime == 0)
+            {
+                stageCtrler.StageEnd(false);
+                break;
+            }
 
             timeText.text = stageClearLimitTime.ToString();
         }

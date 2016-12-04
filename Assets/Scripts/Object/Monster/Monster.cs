@@ -51,7 +51,7 @@ public class Monster : MonoBehaviour
         StartCoroutine(DefaultAttackProcess());
         StartCoroutine(ShieldProcess());
         StartCoroutine(AoeSkillProcess());
-        StartCoroutine(DeadlySkillProcess());
+        //StartCoroutine(DeadlySkillProcess());
         StartCoroutine(BerserkSkillProces());
     }
 

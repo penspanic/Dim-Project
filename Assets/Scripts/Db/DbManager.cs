@@ -21,7 +21,7 @@ public class DbManager : MonoBehaviour
     스테이지 제한 시간
     */
 
-    int[] stageClearLimitTime = new int[] { 60, 60, 60, 60, 60, 60, 60, 60, 60 };
+    int[] stageClearLimitTime = new int[] { 60, 60, 60, 60, 60, 60, 60, 60, 60 ,60 };
     public int GetStageClearLimitTime(int stageNum) // 스테이지 제한 시간
     {
         return stageClearLimitTime[stageNum - 1];
