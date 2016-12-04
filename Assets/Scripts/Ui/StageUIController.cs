@@ -111,6 +111,7 @@ public partial class StageUIController : MonoBehaviour
     public void Option()
     {
         option.SetActive(true);
+     
     }
 
     #endregion
@@ -163,6 +164,7 @@ public partial class StageUIController : MonoBehaviour
             scout.transform.FindChild("Hero_" + (i + 1).ToString());
 
             GameObject hero = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Ui/Scout Character/" + types[i].ToString()));
+           
             scoutableCharacters.Add(hero);
         }
         
@@ -190,9 +192,9 @@ public partial class StageUIController : MonoBehaviour
 
         selectedScoutHero = Instantiate<GameObject>(Resources.Load<GameObject>("Prefabs/Ui/Scout Character/" + scoutableTypes[index]));
         selectedScoutHero.transform.position = Vector3.zero;
-        scout.SetActive(false);
-        selectedHeroIndex = index;
 
+        selectedHeroIndex = index;
+        scout.SetActive(false);
         changeHero.SetActive(true);
         canChange = true;
     }
