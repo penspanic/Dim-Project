@@ -68,6 +68,7 @@ public class StageController : MonoBehaviour
             }
         }
 
+        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Clear);
         uiCtrler.ShowStageEndUi(isCleared);
 
         foreach (var eachCharacter in characters)
@@ -90,11 +91,12 @@ public class StageController : MonoBehaviour
                 isAllDead = false;
             }
         }
-
+     
         if (isAllDead == true)
         {
             SoundManager.instance.PlayBgmSound(SoundManager.BGM.Fail);
             StageEnd(false);
+
 
         }
     }
@@ -112,7 +114,7 @@ public class StageController : MonoBehaviour
             if (eachCharacter.isDead)
             {
                 deadCount++;
-                if (deadCount == 2 && SoundManager.instance.BgmAudioSource.clip.name != "(BGM)DeongeonCatHeroes_InGame(Player)")
+                if (deadCount >= 2 && SoundManager.instance.BgmAudioSource.clip.name !="(BGM)DeongeonCatHeroes_InGame(Player)")
                 {
                     SoundManager.instance.PlayBgmSound(SoundManager.BGM.InGame_Player);
                 }
