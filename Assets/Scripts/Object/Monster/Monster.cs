@@ -5,6 +5,8 @@ public class Monster : MonoBehaviour
 {
     // TODO : Monster 프리팹 Monster 태그 설정
 
+    public GameObject shieldEffectPrefab;
+
     public int hp;
     public int DefaultShieldHp;
     public int AoeSkillDamage;
@@ -74,8 +76,7 @@ public class Monster : MonoBehaviour
             shieldHp -= damage;
             if (shieldHp < 0)
             {
-                hasShield = false;
-                shieldHp = 0;
+                BreakShield();
             }
             return;
         }
@@ -128,6 +129,10 @@ public class Monster : MonoBehaviour
     public void BreakShield()
     {
         SoundManager.instance.PlayEffectSound(SoundManager.Effect.BreakShield);
+        if(shieldEffect != null)
+        {
+            Destroy(shieldEffect);
+        }
         hasShield = false;
         shieldHp = 0;
     }
@@ -159,6 +164,7 @@ public class Monster : MonoBehaviour
         defaultAttackCollider.enabled = false;
     }
 
+    GameObject shieldEffect;
     IEnumerator ShieldProcess()
     {
         while (isDead == false)
@@ -175,6 +181,10 @@ public class Monster : MonoBehaviour
             }
 
             hasShield = true;
+            shieldEffect = Instantiate<GameObject>(shieldEffectPrefab);
+            shieldEffect.transform.SetParent(this.transform);
+            shieldEffect.transform.localPosition = Vector3.zero;
+
             SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossBarrierOn);
             shieldHp = DefaultShieldHp;
         }
