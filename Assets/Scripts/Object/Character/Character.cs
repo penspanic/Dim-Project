@@ -176,7 +176,7 @@ public class Character : MonoBehaviour, ITouchable
     private void OnDeath()
     {
         isDead = true;
-
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.CharacterDead);
         Destroy(hpBar.gameObject);
 
         if(stageCtrler.IsStageEnd == false)

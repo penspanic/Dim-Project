@@ -70,6 +70,7 @@ public class Monster : MonoBehaviour
         // 쉴드가 있을 경우 쉴드의 데미지만 달게 한다. 예) 쉴드 체력 10, damage  30 -> 쉴드 파괴, hp 손실 X
         if (shieldHp > 0)
         {
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossDefense);
             shieldHp -= damage;
             if (shieldHp < 0)
             {
@@ -147,6 +148,7 @@ public class Monster : MonoBehaviour
             if (isDead == false) // 타이밍상 WaitForSeconds한 후 죽어있을 수도 있다.
             {
                 defaultAttackCollider.enabled = true;
+                SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossHit);
                 animator.Play("Attack", 0);
             }
         }
@@ -173,6 +175,7 @@ public class Monster : MonoBehaviour
             }
 
             hasShield = true;
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossBarrierOn);
             shieldHp = DefaultShieldHp;
         }
     }
@@ -208,6 +211,7 @@ public class Monster : MonoBehaviour
 
                 if(Mathf.Abs(targetPosX - eachCharacter.transform.position.x) < 2f)
                 {
+                    SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossAoe);
                     eachCharacter.OnDamaged(AoeSkillDamage);
                 }
             }
@@ -246,6 +250,7 @@ public class Monster : MonoBehaviour
             }
 
             isBerserkMode = true;
+            SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossBerserkerMode);
             effectCtrler.ShowEffect(EffectType.BerserkModeThunder, BerserkModeDuration, transform.position + Vector3.left * 3);
 
             yield return new WaitForSeconds(BerserkModeDuration);

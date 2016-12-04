@@ -134,7 +134,7 @@ public class SoundManager : MonoBehaviour
         effect.Add(Effect.BossBerserkerMode, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_BerserkerMode_1") as AudioClip);
         effect.Add(Effect.BossCritical, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_Critical_1") as AudioClip);
         effect.Add(Effect.BossDefense, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_Defense_1") as AudioClip);
-        effect.Add(Effect.BossHit, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_Defense_1") as AudioClip);
+        effect.Add(Effect.BossHit, Resources.Load("Sound/Boss/(SFX)DeongeonCatHeroes_Boss_Hit_1") as AudioClip);
 
 
 
