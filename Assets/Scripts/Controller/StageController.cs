@@ -68,7 +68,7 @@ public class StageController : MonoBehaviour
             }
         }
 
-        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Clear);
+        
         uiCtrler.ShowStageEndUi(isCleared);
 
         foreach (var eachCharacter in characters)
@@ -77,6 +77,7 @@ public class StageController : MonoBehaviour
         }
 
         IsStageEnd = true;
+        SoundManager.instance.PlayBgmSound(SoundManager.BGM.Clear);
     }
 
 
