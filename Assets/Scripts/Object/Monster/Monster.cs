@@ -152,11 +152,15 @@ public class Monster : MonoBehaviour
 
             if (isDead == false) // 타이밍상 WaitForSeconds한 후 죽어있을 수도 있다.
             {
-                defaultAttackCollider.enabled = true;
                 SoundManager.instance.PlayEffectSound(SoundManager.Effect.BossHit);
                 animator.Play("Attack", 0);
             }
         }
+    }
+
+    public void OnDefaultAttackCollisionEnable()
+    {
+        defaultAttackCollider.enabled = true;
     }
 
     public void OnDefaultAttackMotionEnd()
