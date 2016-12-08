@@ -12,7 +12,7 @@ public class Logo : MonoBehaviour
         Screen.SetResolution(1280, 720, true);
     }
     // Update is called once per frame
-    void Update()
+    void Update() 
     {
 
 
