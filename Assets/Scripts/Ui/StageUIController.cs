@@ -51,6 +51,8 @@ public partial class StageUIController : MonoBehaviour
     #region 메뉴
     void Start()
     {
+        Time.timeScale = 1f; // 인게임에서 0으로 설정한 뒤 Menu씬에 도달할 수도 있음
+
         StartCoroutine(SceneController.instance.FadeIn(1));
         SoundManager.instance.PlayBgmSound(SoundManager.BGM.Lobby);
 
@@ -110,6 +112,7 @@ public partial class StageUIController : MonoBehaviour
 
     public void Cancel(GameObject ui) // 캐릭터 고르기 전에 취소
     {
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonClose);
         ui.SetActive(false);
 
         foreach (var character in scoutableCharacters)
@@ -120,8 +123,8 @@ public partial class StageUIController : MonoBehaviour
 
     public void Option()
     {
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonClick);
         option.SetActive(true);
-     
     }
 
     #endregion
@@ -241,12 +244,14 @@ public partial class StageUIController : MonoBehaviour
     #region 옵션
     public void Reset()
     {
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonClick);
         PlayerData.instance.ResetData();
         StartCoroutine(SceneController.instance.FadeOut(1f, "Menu"));
     }
 
     public void Credit()
     {
+        SoundManager.instance.PlayEffectSound(SoundManager.Effect.ButtonClick);
         StartCoroutine(SceneController.instance.FadeOut(1f, "Credit"));
     }
    

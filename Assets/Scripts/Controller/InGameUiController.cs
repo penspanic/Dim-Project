@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class InGameUiController : MonoBehaviour
 {
     public GameObject stageWin;
     public GameObject stageLose;
+    public GameObject optionPopup;
 
     private StageController stageCtrler;
     private Text timeText;
@@ -19,6 +21,8 @@ public class InGameUiController : MonoBehaviour
         timeText.text = stageClearLimitTime.ToString();
 
         StartCoroutine(StageStartProcess());
+
+        Time.timeScale = 1f;
     }
 
     IEnumerator StageStartProcess()
@@ -78,4 +82,36 @@ public class InGameUiController : MonoBehaviour
         SceneController.instance.haveToScout = true;
         StartCoroutine(SceneController.instance.FadeOut(1f, "Menu"));
     }
+
+
+    #region Option button handlers
+    public void OnOptionButtonDown()
+    {
+        Time.timeScale = 0f;
+        optionPopup.SetActive(true);
+    }
+
+    public void OnRestartButtonDown()
+    {
+        optionPopup.SetActive(false);
+        Time.timeScale = 0f;
+        StartCoroutine(SceneController.instance.FadeOut(1f, "InGame"));
+    }
+
+    public void OnReturnToMenuButtonDown()
+    {
+        optionPopup.SetActive(false);
+        Time.timeScale = 0f;
+        StartCoroutine(SceneController.instance.FadeOut(1f, "Menu"));
+    }
+
+    public void OnCloseButtonDown()
+    {
+        optionPopup.SetActive(false);
+
+        Time.timeScale = 1f;
+    }
+
+    #endregion
+
 }

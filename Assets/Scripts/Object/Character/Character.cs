@@ -50,7 +50,6 @@ public class Character : MonoBehaviour, ITouchable
     private int startHp = 0;
 
     protected StageController stageCtrler;
-    protected CharacterQueueController queueCtrler;
     protected EffectController effectCtrler;
     HpBar hpBar;
     Animator animator;
@@ -63,7 +62,6 @@ public class Character : MonoBehaviour, ITouchable
         startHp = hp;
 
         stageCtrler = GameObject.FindObjectOfType<StageController>();
-        queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
         effectCtrler = GameObject.FindObjectOfType<EffectController>();
         hpBar = transform.FindChild("Hp Bar").GetComponent<HpBar>();
         animator = GetComponent<Animator>();
@@ -122,9 +120,11 @@ public class Character : MonoBehaviour, ITouchable
     // 몬스터에게 공격을 하고 다시 되돌아올 때
     public void ResetPosition()
     {
-        queueCtrler.Enqueue(this);
-        isMoving = false;
+        effectCtrler.ShowEffect(EffectType.ChracterReset, 1f, transform.position);
         moveSpeed = DefaultMoveSpeed;
+
+        transform.position = new Vector3(-8f, -3f, 0f);
+        StartMove();
     }
 
     public virtual void SetBuff(float duration, float ratio)
@@ -149,7 +149,6 @@ public class Character : MonoBehaviour, ITouchable
         {
             hp = startHp;
         }
-        // 힐 버프 애니메이션 같은 처리 여기서 해주면 된다.
     }
 
     public void OnDamaged(int damage, bool isResetPos = false)

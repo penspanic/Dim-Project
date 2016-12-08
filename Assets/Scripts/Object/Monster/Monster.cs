@@ -305,9 +305,4 @@ public class Monster : MonoBehaviour
             hpBar.SetValue((float)hp / (float)startHp);
         }
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-
-    }
 }

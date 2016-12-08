@@ -10,7 +10,6 @@ public class StageController : MonoBehaviour
     }
 
     InGameUiController uiCtrler;
-    CharacterQueueController queueCtrler;
 
     List<Character> characters = new List<Character>();
     Monster monster;
@@ -18,7 +17,6 @@ public class StageController : MonoBehaviour
     private void Awake()
     {
         uiCtrler = GameObject.FindObjectOfType<InGameUiController>();
-        queueCtrler = GameObject.FindObjectOfType<CharacterQueueController>();
         stageClearLimitTime = DbManager.instance.GetStageClearLimitTime(PlayerData.instance.GetSelectedStageNum());
 
 
@@ -53,7 +51,6 @@ public class StageController : MonoBehaviour
         {
             eachCharacter.StartMove();
         }
-        queueCtrler.OnStart(characters.ToArray());
 
         monster.StartDefense();
     }

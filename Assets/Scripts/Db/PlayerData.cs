@@ -43,6 +43,7 @@ public class PlayerData : MonoBehaviour
         selectedStageNum = 1;
         SelectedCharacters.Clear();
         PlayerPrefs.DeleteAll();
+        InitData();
     }
 
     void InitData()
