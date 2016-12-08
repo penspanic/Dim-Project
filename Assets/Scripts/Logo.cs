@@ -9,6 +9,7 @@ public class Logo : MonoBehaviour
     void Start()
     {
         SoundManager.instance.PlayBgmSound(SoundManager.BGM.Lobby);
+        Screen.SetResolution(1280, 720, true);
     }
     // Update is called once per frame
     void Update()
