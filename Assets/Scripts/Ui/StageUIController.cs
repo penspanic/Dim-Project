@@ -11,6 +11,8 @@ public partial class StageUIController : MonoBehaviour
 
     //UI오브젝트
     [SerializeField]
+    private GameObject stageContent;
+    [SerializeField]
     private GameObject chanllengeMeassge;
     [SerializeField]
     private GameObject scout;
@@ -51,6 +53,7 @@ public partial class StageUIController : MonoBehaviour
     #region 메뉴
     void Start()
     {
+        StageAdd(stageContent);
         Time.timeScale = 1f; // 인게임에서 0으로 설정한 뒤 Menu씬에 도달할 수도 있음
 
         StartCoroutine(SceneController.instance.FadeIn(1));
@@ -62,6 +65,12 @@ public partial class StageUIController : MonoBehaviour
         }
 
         SetPortraits();
+    }
+    private void StageAdd(GameObject StageContent)
+    {
+        int count = stageContent.transform.childCount;
+        RectTransform stageRectTransform = (RectTransform)StageContent.transform;
+        stageRectTransform.offsetMin = new Vector2(stageRectTransform.offsetMin.x, -150 * count);
     }
     public void ChallengeCheck(StageData stagedata)
     {
