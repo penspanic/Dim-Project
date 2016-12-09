@@ -176,10 +176,6 @@ public class Monster : MonoBehaviour
             float coolTime = Random.Range(ShieldCoolTimeRange.x, ShieldCoolTimeRange.y);
 
             hasShield = false;
-            if(shieldEffect != null) // 기존에 있던 쉴드이펙트 제거
-            {
-                Destroy(shieldEffect);
-            }
 
             yield return new WaitForSeconds(coolTime);
 
@@ -187,7 +183,6 @@ public class Monster : MonoBehaviour
             {
                 break;
             }
-
 
             hasShield = true;
             shieldEffect = Instantiate<GameObject>(shieldEffectPrefab);
