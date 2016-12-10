@@ -51,7 +51,7 @@ public partial class StageUIController : MonoBehaviour
     #endregion
 
     #region 메뉴
-    void Start()
+    void Awake()
     {
         StageAdd(stageContent);
         Time.timeScale = 1f; // 인게임에서 0으로 설정한 뒤 Menu씬에 도달할 수도 있음
@@ -66,6 +66,7 @@ public partial class StageUIController : MonoBehaviour
 
         SetPortraits();
     }
+
     private void StageAdd(GameObject StageContent)
     {
         int count = stageContent.transform.childCount;
@@ -224,7 +225,12 @@ public partial class StageUIController : MonoBehaviour
 
     public void ChangeHero(int index) // 왼쪽의 5개 초상화 버튼 눌렀을 때, 
     {
-        if (canChange)
+        if( index + 1 <= PlayerData.instance.SelectedCharacters.Count) // 캐릭터 목소리
+        {
+            SoundManager.instance.PlayCharacterVoice(PlayerData.instance.SelectedCharacters[index]);
+        }
+
+        if (canChange == true)
         {
             changeHero.SetActive(false);
             canChange = false;

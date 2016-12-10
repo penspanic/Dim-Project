@@ -3,7 +3,6 @@ using System.Collections;
 
 public enum CharacterType
 {
-    Unknown,
     Warrior, // 전사
     Bard, // 음유시인
     Assassin, // 도적
@@ -201,6 +200,7 @@ public class Character : MonoBehaviour, ITouchable
         if(isDead == false && isMoving == true)
         {
             ResetPosition();
+            SoundManager.instance.PlayCharacterVoice(type);
         }
     }
 

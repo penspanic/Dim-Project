@@ -176,6 +176,10 @@ public class Monster : MonoBehaviour
             float coolTime = Random.Range(ShieldCoolTimeRange.x, ShieldCoolTimeRange.y);
 
             hasShield = false;
+            if(shieldEffect != null)
+            {
+                Destroy(shieldEffect);
+            }
 
             yield return new WaitForSeconds(coolTime);
 
