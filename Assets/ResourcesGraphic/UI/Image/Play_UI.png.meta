@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8445ada3184ab99469b9dbf925c3a8a9
-timeCreated: 1480726593
+timeCreated: 1481444070
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -15,6 +15,9 @@ TextureImporter:
     21300016: UI_window_04
     21300018: UI_E_HP_02
     21300020: UI_E_HP_01
+    21300022: UI_Button_Close
+    21300024: UI_Button_Back
+    21300026: UI_Button_Stop
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -201,6 +204,45 @@ TextureImporter:
         y: 15
         width: 900
         height: 50
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UI_Button_Close
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 687
+        width: 91
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UI_Button_Back
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 569
+        width: 91
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: UI_Button_Stop
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 445
+        width: 91
+        height: 89
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
