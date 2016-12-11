@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 8445ada3184ab99469b9dbf925c3a8a9
-timeCreated: 1481444070
+timeCreated: 1481448516
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -122,12 +122,12 @@ TextureImporter:
       name: UI_P_HP_02
       rect:
         serializedVersion: 2
-        x: 903
-        y: 865
-        width: 102
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 901
+        y: 863
+        width: 106
+        height: 19
+      alignment: 5
+      pivot: {x: 1, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
