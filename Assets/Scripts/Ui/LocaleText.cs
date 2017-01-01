@@ -8,6 +8,7 @@ public class LocaleText : MonoBehaviour
 
     void Awake()
     {
+        string newText = LocaleManager.Get(Locale);
         GetComponent<Text>().text = LocaleManager.Get(Locale);
     }
 }
